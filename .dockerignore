@@ -6,11 +6,11 @@
 
 # Documentation
 docs/
-README.md
-CHANGELOG.md
 CONTRIBUTING.md
 TROUBLESHOOTING.md
-*.md
+BUILD_OPTIMIZATION.md
+QUICK_START.md
+DEPLOYMENT.md
 
 # Development
 .DS_Store
