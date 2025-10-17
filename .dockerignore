@@ -1,20 +1,69 @@
+# Git & VCS
+.git
 .github
+.gitignore
+.gitattributes
+
+# Documentation
+docs/
+README.md
+CHANGELOG.md
+CONTRIBUTING.md
+TROUBLESHOOTING.md
+*.md
+
+# Development
 .DS_Store
-docs
-kubernetes
-node_modules
+.idea/
+.vscode/
+__pycache__/
+*.pyc
+*.pyo
+*.log
+npm-debug.log*
+
+# Build artifacts
+node_modules/
 /.svelte-kit
 /package
-.env
-.env.*
+build/
+dist/
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
-__pycache__
-.idea
-venv
-_old
-uploads
-.ipynb_checkpoints
+
+# Environment
+.env
+.env.*
+!.env.example
+
+# Python
+venv/
+.venv/
+*.egg-info/
+.ipynb_checkpoints/
+
+# Testing
+cypress/
+test/
+coverage/
+_test/
+
+# Temporary
+_old/
+uploads/
+tmp/
+*.tmp
+logo-backup-*/
+
+# Database
 **/*.db
-_test
+**/*.sqlite
+
+# Kubernetes & Docker
+kubernetes/
+docker-compose*.yaml
+!docker-compose.prod.yaml
+
+# Backend data
 backend/data/*
+!backend/data/readme.txt

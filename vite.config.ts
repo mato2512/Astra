@@ -21,9 +21,17 @@ export default defineConfig({
 		APP_BUILD_HASH: JSON.stringify(process.env.APP_BUILD_HASH || 'dev-build')
 	},
 	build: {
-		sourcemap: true,
+		sourcemap: process.env.ENV === 'prod' ? false : true,
+		minify: 'esbuild',
+		chunkSizeWarningLimit: 1000,
 		rollupOptions: {
-			external: ['y-protocols/awareness']
+			external: ['y-protocols/awareness'],
+			output: {
+				manualChunks: {
+					vendor: ['svelte', '@sveltejs/kit'],
+					ui: ['bits-ui', 'svelte-sonner']
+				}
+			}
 		}
 	},
 	worker: {

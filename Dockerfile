@@ -26,20 +26,25 @@ ARG GID=0
 FROM --platform=$BUILDPLATFORM node:22-alpine3.20 AS build
 ARG BUILD_HASH
 
-# Set Node.js options (heap limit Allocation failed - JavaScript heap out of memory)
-# ENV NODE_OPTIONS="--max-old-space-size=4096"
-
 WORKDIR /app
 
-# to store git revision in build
+# Set Node.js memory and optimize npm
+ENV NODE_OPTIONS="--max-old-space-size=4096" \
+    NPM_CONFIG_LOGLEVEL=error \
+    NPM_CONFIG_PROGRESS=false
+
+# Install git for versioning
 RUN apk add --no-cache git
 
+# Copy package files and install dependencies with cache
 COPY package.json package-lock.json ./
-RUN npm ci --legacy-peer-deps
+RUN --mount=type=cache,target=/root/.npm \
+    npm ci --legacy-peer-deps --prefer-offline --no-audit
 
+# Copy source and build
 COPY . .
-ENV APP_BUILD_HASH=${BUILD_HASH}
-ENV NODE_OPTIONS="--max-old-space-size=4096"
+ENV APP_BUILD_HASH=${BUILD_HASH} \
+    ENV=prod
 RUN npm run build
 
 ######## WebUI backend ########

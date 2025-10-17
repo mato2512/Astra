@@ -1,5 +1,38 @@
 @reference "./tailwind.css";
 
+/* Modern ChatGPT/Gemini-inspired Theme Variables */
+:root {
+	/* Light Mode Colors */
+	--bg-primary: #ffffff;
+	--bg-secondary: #f7f7f8;
+	--bg-tertiary: #ececf1;
+	--text-primary: #2e3338;
+	--text-secondary: #6e6e80;
+	--border-color: #d9d9e3;
+	--hover-bg: #f7f7f8;
+	--accent-primary: #10a37f;
+	--accent-hover: #0d8a6a;
+	--shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+	--shadow-md: 0 4px 6px rgba(0, 0, 0, 0.07);
+	--shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+}
+
+.dark {
+	/* Dark Mode Colors - ChatGPT/Gemini Style */
+	--bg-primary: #212121;
+	--bg-secondary: #2f2f2f;
+	--bg-tertiary: #3d3d3d;
+	--text-primary: #ececf1;
+	--text-secondary: #c5c5d2;
+	--border-color: #424242;
+	--hover-bg: #2f2f2f;
+	--accent-primary: #19c37d;
+	--accent-hover: #15a86b;
+	--shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+	--shadow-md: 0 4px 6px rgba(0, 0, 0, 0.4);
+	--shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.5);
+}
+
 @font-face {
 	font-family: 'Inter';
 	src: url('/assets/fonts/Inter-Variable.ttf');

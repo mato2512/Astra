@@ -5,15 +5,9 @@ const packages = [
 	'beautifulsoup4',
 	'numpy',
 	'pandas',
-	'matplotlib',
-	'scikit-learn',
-	'scipy',
 	'regex',
-	'sympy',
 	'tiktoken',
-	'seaborn',
 	'pytz',
-	'black',
 	'openai'
 ];
 

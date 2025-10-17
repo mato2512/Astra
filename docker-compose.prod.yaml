@@ -5,8 +5,10 @@ services:
       dockerfile: Dockerfile
       args:
         BUILD_HASH: ${BUILD_HASH:-production}
+        DOCKER_BUILDKIT: 1
     image: astra-ai:latest
     container_name: astra-ai
+    platform: linux/amd64
     ports:
       - "${PORT:-3000}:8080"
     volumes:
