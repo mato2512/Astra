@@ -25,13 +25,7 @@ export default defineConfig({
 		minify: 'esbuild',
 		chunkSizeWarningLimit: 1000,
 		rollupOptions: {
-			external: ['y-protocols/awareness'],
-			output: {
-				manualChunks: {
-					vendor: ['svelte', '@sveltejs/kit'],
-					ui: ['bits-ui', 'svelte-sonner']
-				}
-			}
+			external: ['y-protocols/awareness']
 		}
 	},
 	worker: {
