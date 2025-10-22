@@ -160,7 +160,7 @@
 						on:click={() => {
 							show = false;
 						}}
-						href="https://docs.openwebui.com"
+						href="https://docs.astra.ngts.tech"
 					>
 						<QuestionMarkCircle className="size-5" />
 						<div class="flex items-center">{$i18n.t('Documentation')}</div>
@@ -179,9 +179,10 @@
 					>
 						<Map className="size-5" />
 						<div class="flex items-center">{$i18n.t('Releases')}</div>
-					</DropdownMenu.Item>
-				{/if}
+				</DropdownMenu.Item>
+			{/if}
 
+			{#if $user?.role === 'admin'}
 				<DropdownMenu.Item
 					class="flex gap-2 items-center py-1.5 px-3 text-sm select-none w-full  hover:bg-gray-50 dark:hover:bg-gray-800 rounded-xl transition cursor-pointer"
 					id="chat-share-button"
@@ -198,9 +199,7 @@
 					<Keyboard className="size-5" />
 					<div class="flex items-center">{$i18n.t('Keyboard shortcuts')}</div>
 				</DropdownMenu.Item>
-			{/if}
-
-			<hr class=" border-gray-50 dark:border-gray-800 my-1 p-0" />
+			{/if}			<hr class=" border-gray-50 dark:border-gray-800 my-1 p-0" />
 
 			<DropdownMenu.Item
 				class="flex rounded-xl py-1.5 px-3 w-full hover:bg-gray-50 dark:hover:bg-gray-800 transition"
@@ -219,7 +218,7 @@
 				<div class=" self-center truncate">{$i18n.t('Sign Out')}</div>
 			</DropdownMenu.Item>
 
-			{#if usage}
+			{#if $user?.role === 'admin' && usage}
 				{#if usage?.user_ids?.length > 0}
 					<hr class=" border-gray-50 dark:border-gray-800 my-1 p-0" />
 

@@ -134,7 +134,7 @@ async def get_headers_and_cookies(
         "Content-Type": "application/json",
         **(
             {
-                "HTTP-Referer": "https://openwebui.com/",
+                "HTTP-Referer": "https://astra.ngts.tech/",
                 "X-Title": "Astra",
             }
             if "openrouter.ai" in url
