@@ -659,8 +659,35 @@
 									<AppNotification strokeWidth="2" />
 								</div>
 								<div class=" self-center">{$i18n.t('Interface')}</div>
-							</button>
-						{:else if tabId === 'connections'}
+				</button>
+			{:else if tabId === 'interface'}
+				{#if $user?.role === 'admin'}
+					<button
+						role="tab"
+						aria-controls="tab-interface"
+						aria-selected={selectedTab === 'interface'}
+						class={`px-0.5 md:px-2.5 py-1 min-w-fit rounded-xl flex-1 md:flex-none flex text-left transition
+					${
+						selectedTab === 'interface'
+							? ($settings?.highContrastMode ?? false)
+								? 'dark:bg-gray-800 bg-gray-200'
+								: ''
+							: ($settings?.highContrastMode ?? false)
+								? 'hover:bg-gray-200 dark:hover:bg-gray-800'
+								: 'text-gray-300 dark:text-gray-600 hover:text-gray-700 dark:hover:text-white'
+					}`}
+						on:click={() => {
+							selectedTab = 'interface';
+						}}
+					>
+						<div class=" self-center mr-2">
+							<AppNotification strokeWidth="2" />
+						</div>
+						<div class=" self-center">{$i18n.t('Interface')}</div>
+					</button>
+				{/if}
+			{/if}
+				{:else if tabId === 'connections'}
 							{#if $user?.role === 'admin' || ($user?.role === 'user' && $config?.features?.enable_direct_connections)}
 								<button
 									role="tab"
@@ -713,29 +740,31 @@
 								</button>
 							{/if}
 						{:else if tabId === 'personalization'}
-							<button
-								role="tab"
-								aria-controls="tab-personalization"
-								aria-selected={selectedTab === 'personalization'}
-								class={`px-0.5 md:px-2.5 py-1 min-w-fit rounded-xl flex-1 md:flex-none flex text-left transition
-								${
-									selectedTab === 'personalization'
-										? ($settings?.highContrastMode ?? false)
-											? 'dark:bg-gray-800 bg-gray-200'
-											: ''
-										: ($settings?.highContrastMode ?? false)
-											? 'hover:bg-gray-200 dark:hover:bg-gray-800'
-											: 'text-gray-300 dark:text-gray-600 hover:text-gray-700 dark:hover:text-white'
-								}`}
-								on:click={() => {
-									selectedTab = 'personalization';
-								}}
-							>
-								<div class=" self-center mr-2">
-									<Face strokeWidth="2" />
-								</div>
-								<div class=" self-center">{$i18n.t('Personalization')}</div>
-							</button>
+							{#if $user?.role === 'admin'}
+								<button
+									role="tab"
+									aria-controls="tab-personalization"
+									aria-selected={selectedTab === 'personalization'}
+									class={`px-0.5 md:px-2.5 py-1 min-w-fit rounded-xl flex-1 md:flex-none flex text-left transition
+									${
+										selectedTab === 'personalization'
+											? ($settings?.highContrastMode ?? false)
+												? 'dark:bg-gray-800 bg-gray-200'
+												: ''
+											: ($settings?.highContrastMode ?? false)
+												? 'hover:bg-gray-200 dark:hover:bg-gray-800'
+												: 'text-gray-300 dark:text-gray-600 hover:text-gray-700 dark:hover:text-white'
+									}`}
+									on:click={() => {
+										selectedTab = 'personalization';
+									}}
+								>
+									<div class=" self-center mr-2">
+										<Face strokeWidth="2" />
+									</div>
+									<div class=" self-center">{$i18n.t('Personalization')}</div>
+								</button>
+							{/if}
 						{:else if tabId === 'audio'}
 							<button
 								role="tab"
@@ -941,3 +970,4 @@
 		-moz-appearance: textfield; /* Firefox */
 	}
 </style>
+

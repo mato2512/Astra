@@ -60,7 +60,7 @@
 							v{WEBUI_VERSION}
 						</Tooltip>
 
-						{#if $config?.features?.enable_version_update_check}
+						{#if $user?.role === 'admin' && $config?.features?.enable_version_update_check}
 							<a
 								href="https://github.com/open-webui/open-webui/releases/tag/v{version.latest}"
 								target="_blank"
@@ -74,17 +74,19 @@
 						{/if}
 					</div>
 
-					<button
-						class=" underline flex items-center space-x-1 text-xs text-gray-500 dark:text-gray-500"
-						on:click={() => {
-							showChangelog.set(true);
-						}}
-					>
-						<div>{$i18n.t("See what's new")}</div>
-					</button>
+					{#if $user?.role === 'admin'}
+						<button
+							class=" underline flex items-center space-x-1 text-xs text-gray-500 dark:text-gray-500"
+							on:click={() => {
+								showChangelog.set(true);
+							}}
+						>
+							<div>{$i18n.t("See what's new")}</div>
+						</button>
+					{/if}
 				</div>
 
-				{#if $config?.features?.enable_version_update_check}
+				{#if $user?.role === 'admin' && $config?.features?.enable_version_update_check}
 					<button
 						class=" text-xs px-3 py-1.5 bg-gray-100 hover:bg-gray-200 dark:bg-gray-850 dark:hover:bg-gray-800 transition rounded-lg font-medium"
 						on:click={() => {

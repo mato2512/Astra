@@ -114,7 +114,7 @@ WEBUI_NAME = os.environ.get("WEBUI_NAME", "Astra")
 if WEBUI_NAME != "Astra":
     WEBUI_NAME += " (Astra)"
 
-WEBUI_FAVICON_URL = "https://openwebui.com/favicon.png"
+WEBUI_FAVICON_URL = "https://astra.ngts.tech/favicon.png"
 
 TRUSTED_SIGNATURE_KEY = os.environ.get("TRUSTED_SIGNATURE_KEY", "")
 
