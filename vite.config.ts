@@ -24,41 +24,14 @@ export default defineConfig({
 		sourcemap: process.env.ENV === 'prod' ? false : true,
 		minify: 'esbuild',
 		chunkSizeWarningLimit: 1000,
-		target: 'esnext',
-		cssCodeSplit: true,
 		rollupOptions: {
-			external: ['y-protocols/awareness'],
-			output: {
-				manualChunks: (id) => {
-					// Vendor chunks for better caching
-					if (id.includes('node_modules')) {
-						if (id.includes('svelte')) return 'svelte-vendor';
-						if (id.includes('socket.io')) return 'socket-vendor';
-						if (id.includes('openai') || id.includes('anthropic')) return 'ai-vendor';
-						if (id.includes('marked') || id.includes('highlight')) return 'markdown-vendor';
-						return 'vendor';
-					}
-				},
-				chunkFileNames: 'chunks/[name]-[hash].js',
-				assetFileNames: 'assets/[name]-[hash][extname]'
-			}
+			external: ['y-protocols/awareness']
 		}
 	},
 	worker: {
 		format: 'es'
 	},
-	server: {
-		fs: {
-			strict: false
-		}
-	},
 	esbuild: {
-		pure: process.env.ENV === 'dev' ? [] : ['console.log', 'console.debug', 'console.error'],
-		legalComments: 'none',
-		treeShaking: true
-	},
-	optimizeDeps: {
-		include: ['svelte', 'socket.io-client'],
-		exclude: ['onnxruntime-web']
+		pure: process.env.ENV === 'dev' ? [] : ['console.log', 'console.debug', 'console.error']
 	}
 });
