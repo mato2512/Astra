@@ -46,9 +46,9 @@
 <button
 	aria-roledescription="model-item"
 	aria-label={item.label}
-	class="flex group/item w-full text-left font-medium select-none items-center rounded-lg py-3 px-3 mb-1 text-sm text-gray-700 dark:text-gray-100 outline-hidden transition-all duration-75 hover:bg-gray-100 dark:hover:bg-gray-850 cursor-pointer border border-transparent hover:border-gray-200 dark:hover:border-gray-700 {index ===
+	class="flex group/item w-full text-left select-none items-center rounded-lg py-2.5 px-3 mb-1 text-sm cursor-pointer border border-transparent transition-all duration-150 hover:border-gray-300 dark:hover:border-gray-600 {index ===
 	selectedModelIdx
-		? 'bg-gray-100 dark:bg-gray-850 border-gray-200 dark:border-gray-700'
+		? ''
 		: ''}"
 	data-arrow-selected={index === selectedModelIdx}
 	data-value={item.value}
@@ -56,9 +56,9 @@
 		onClick();
 	}}
 >
-	<div class="flex items-start gap-3 flex-1 min-w-0">
+	<div class="flex items-center gap-3 flex-1 min-w-0">
 		<!-- Model Icon -->
-		<div class="flex-shrink-0 mt-0.5">
+		<div class="flex-shrink-0">
 			<img
 				src={item.model?.info?.meta?.profile_image_url ??
 					`${WEBUI_BASE_URL}/static/favicon.png`}
@@ -68,13 +68,13 @@
 		</div>
 
 		<!-- Model Info -->
-		<div class="flex flex-col gap-1 flex-1 min-w-0">
-			<div class="font-semibold text-sm text-gray-900 dark:text-gray-100 line-clamp-1">
+		<div class="flex flex-col gap-0.5 flex-1 min-w-0">
+			<div class="font-medium text-sm text-gray-900 dark:text-gray-100 line-clamp-1">
 				{item.label}
 			</div>
 			
 			{#if item.model?.info?.meta?.description}
-				<div class="text-xs text-gray-500 dark:text-gray-400 line-clamp-2">
+				<div class="text-xs text-gray-500 dark:text-gray-400 line-clamp-1">
 					{item.model?.info?.meta?.description}
 				</div>
 			{/if}

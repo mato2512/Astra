@@ -763,14 +763,14 @@
 									<div class=" self-center mr-2">
 										<SoundHigh strokeWidth="2" />
 									</div>
-									<div class=" self-center">{$i18n.t('Audio')}</div>
-								</button>
-							{/if}
-						{:else if tabId === 'data_controls'}}
-							{#if $user?.role === 'admin'}
-								<button
-									role="tab"
-									aria-controls="tab-data-controls"
+								<div class=" self-center">{$i18n.t('Audio')}</div>
+							</button>
+						{/if}
+					{:else if tabId === 'data_controls'}
+						{#if $user?.role === 'admin'}
+							<button
+								role="tab"
+								aria-controls="tab-data-controls"
 									aria-selected={selectedTab === 'data_controls'}
 									class={`px-0.5 md:px-2.5 py-1 min-w-fit rounded-xl flex-1 md:flex-none flex text-left transition
 									${
