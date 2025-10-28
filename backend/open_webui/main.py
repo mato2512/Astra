@@ -1878,6 +1878,10 @@ async def get_app_version():
 
 @app.get("/api/version/updates")
 async def get_app_latest_release_version(user=Depends(get_verified_user)):
+    # Only admins can check for updates
+    if user.role != "admin":
+        return {"current": VERSION, "latest": VERSION}
+    
     if not ENABLE_VERSION_UPDATE_CHECK:
         log.debug(
             f"Version update check is disabled, returning current version as latest version"
@@ -1886,8 +1890,9 @@ async def get_app_latest_release_version(user=Depends(get_verified_user)):
     try:
         timeout = aiohttp.ClientTimeout(total=1)
         async with aiohttp.ClientSession(timeout=timeout, trust_env=True) as session:
+            # Point to your custom Astra releases instead of Open WebUI
             async with session.get(
-                "https://api.github.com/repos/open-webui/open-webui/releases/latest",
+                "https://api.github.com/repos/mato2512/Astra/releases/latest",
                 ssl=AIOHTTP_CLIENT_SESSION_SSL,
             ) as response:
                 response.raise_for_status()

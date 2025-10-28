@@ -93,7 +93,8 @@
 				</Tooltip>
 			</div>
 
-			<div class=" shrink-0 flex items-center gap-2">
+		<div class=" shrink-0 flex items-center gap-2">
+			{#if $user?.role === 'admin'}
 				{#if item.model.owned_by === 'ollama'}
 					{#if (item.model.ollama?.details?.parameter_size ?? '') !== ''}
 						<div class="flex items-center translate-y-[0.5px]">
@@ -133,11 +134,12 @@
 								</div>
 							</Tooltip>
 						</div>
-					{/if}
 				{/if}
+			{/if}
 
-				<!-- {JSON.stringify(item.info)} -->
+			<!-- {JSON.stringify(item.info)} -->
 
+			{#if $user?.role === 'admin'}
 				{#if (item?.model?.tags ?? []).length > 0}
 					{#key item.model.id}
 						<Tooltip elementId="tags-{item.model.id}">
@@ -219,15 +221,14 @@
 									stroke-linejoin="round"
 									d="m11.25 11.25.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z"
 								/>
-							</svg>
-						</div>
-					</Tooltip>
-				{/if}
-			</div>
+					</svg>
+				</div>
+			</Tooltip>
+		{/if}
+	{/if}
 		</div>
 	</div>
-
-	<div class="ml-auto pl-2 pr-1 flex items-center gap-1.5 shrink-0">
+</div>	<div class="ml-auto pl-2 pr-1 flex items-center gap-1.5 shrink-0">
 		{#if $user?.role === 'admin' && item.model.owned_by === 'ollama' && item.model.ollama?.expires_at && new Date(item.model.ollama?.expires_at * 1000) > new Date()}
 			<Tooltip
 				content={`${$i18n.t('Eject')}`}
