@@ -56,63 +56,70 @@
 </script>
 
 {#key mounted}
-	<div class="m-auto w-full max-w-6xl px-8 lg:px-20">
-		<div class="flex justify-start">
-			<div class="flex -space-x-4 mb-0.5" in:fade={{ duration: 200 }}>
-				{#each models as model, modelIdx}
-					<button
-						on:click={() => {
-							selectedModelIdx = modelIdx;
-						}}
-					>
-						<Tooltip
-							content={marked.parse(
-								sanitizeResponseContent(
-									models[selectedModelIdx]?.info?.meta?.description ?? ''
-								).replaceAll('\n', '<br>')
-							)}
-							placement="right"
+	<div class="m-auto w-full max-w-3xl px-4 md:px-6 lg:px-8">
+		<div class="flex flex-col items-center justify-center min-h-[40vh] md:min-h-[50vh]">
+			<!-- Model Icons -->
+			<div class="flex justify-center mb-6" in:fade={{ duration: 200 }}>
+				<div class="flex -space-x-3">
+					{#each models as model, modelIdx}
+						<button
+							on:click={() => {
+								selectedModelIdx = modelIdx;
+							}}
+							class="transition-transform hover:scale-110 hover:z-10"
 						>
-							<img
-								crossorigin="anonymous"
-								src={model?.info?.meta?.profile_image_url ??
-									($i18n.language === 'dg-DG'
-										? `${WEBUI_BASE_URL}/doge.png`
-										: `${WEBUI_BASE_URL}/static/favicon.png`)}
-								class=" size-[2.7rem] rounded-full border-[1px] border-gray-100 dark:border-none"
-								alt="logo"
-								draggable="false"
-							/>
-						</Tooltip>
-					</button>
-				{/each}
-			</div>
-		</div>
-
-		{#if $temporaryChatEnabled}
-			<Tooltip
-				content={$i18n.t("This chat won't appear in history and your messages will not be saved.")}
-				className="w-full flex justify-start mb-0.5"
-				placement="top"
-			>
-				<div class="flex items-center gap-2 text-gray-500 text-lg mt-2 w-fit">
-					<EyeSlash strokeWidth="2.5" className="size-5" />{$i18n.t('Temporary Chat')}
+							<Tooltip
+								content={marked.parse(
+									sanitizeResponseContent(
+										models[selectedModelIdx]?.info?.meta?.description ?? ''
+									).replaceAll('\n', '<br>')
+								)}
+								placement="top"
+							>
+								<img
+									crossorigin="anonymous"
+									src={model?.info?.meta?.profile_image_url ??
+										($i18n.language === 'dg-DG'
+											? `${WEBUI_BASE_URL}/doge.png`
+											: `${WEBUI_BASE_URL}/static/favicon.png`)}
+									class="size-12 md:size-14 rounded-full border-2 border-white dark:border-gray-900 shadow-lg"
+									alt="logo"
+									draggable="false"
+								/>
+							</Tooltip>
+						</button>
+					{/each}
 				</div>
-			</Tooltip>
-		{/if}
+			</div>
 
-		<div
-			class=" mt-2 mb-4 text-3xl text-gray-800 dark:text-gray-100 text-left flex items-center gap-4 font-primary"
-		>
-			<div>
-				<div class=" capitalize line-clamp-1" in:fade={{ duration: 200 }}>
+			<!-- Temporary Chat Indicator -->
+			{#if $temporaryChatEnabled}
+				<Tooltip
+					content={$i18n.t("This chat won't appear in history and your messages will not be saved.")}
+					className="mb-4"
+					placement="top"
+				>
+					<div class="flex items-center gap-2 text-gray-500 text-sm md:text-base">
+						<EyeSlash strokeWidth="2.5" className="size-4 md:size-5" />
+						<span>{$i18n.t('Temporary Chat')}</span>
+					</div>
+				</Tooltip>
+			{/if}
+
+			<!-- Greeting Title -->
+			<div class="text-center mb-8 md:mb-12">
+				<div
+					class="text-2xl md:text-3xl lg:text-4xl text-gray-800 dark:text-gray-100 font-semibold mb-3"
+					in:fade={{ duration: 200 }}
+				>
 					{randomGreeting}
 				</div>
 
-				<div in:fade={{ duration: 200, delay: 200 }}>
-					{#if models[selectedModelIdx]?.info?.meta?.description ?? null}
+				<!-- Model Description (Hidden on Mobile for Cleaner Look) -->
+				{#if models[selectedModelIdx]?.info?.meta?.description ?? null}
+					<div in:fade={{ duration: 200, delay: 100 }}>
 						<div
-							class="mt-0.5 text-base font-normal text-gray-500 dark:text-gray-400 line-clamp-3 markdown"
+							class="hidden md:block text-sm lg:text-base text-gray-500 dark:text-gray-400 max-w-2xl mx-auto"
 						>
 							{@html marked.parse(
 								sanitizeResponseContent(
@@ -121,12 +128,13 @@
 							)}
 						</div>
 						{#if models[selectedModelIdx]?.info?.meta?.user}
-							<div class="mt-0.5 text-sm font-normal text-gray-400 dark:text-gray-500">
+							<div class="hidden md:block mt-2 text-xs text-gray-400 dark:text-gray-500">
 								By
 								{#if models[selectedModelIdx]?.info?.meta?.user.community}
 									<a
 										href="https://openwebui.com/m/{models[selectedModelIdx]?.info?.meta?.user
 											.username}"
+										class="hover:underline"
 										>{models[selectedModelIdx]?.info?.meta?.user.name
 											? models[selectedModelIdx]?.info?.meta?.user.name
 											: `@${models[selectedModelIdx]?.info?.meta?.user.username}`}</a
@@ -136,20 +144,21 @@
 								{/if}
 							</div>
 						{/if}
-					{/if}
-				</div>
+					</div>
+				{/if}
 			</div>
-		</div>
 
-		<div class=" w-full font-primary" in:fade={{ duration: 200, delay: 300 }}>
-			<Suggestions
-				className="grid grid-cols-2"
-				suggestionPrompts={atSelectedModel?.info?.meta?.suggestion_prompts ??
-					models[selectedModelIdx]?.info?.meta?.suggestion_prompts ??
-					$config?.default_prompt_suggestions ??
-					[]}
-				{onSelect}
-			/>
+			<!-- Suggestions -->
+			<div class="w-full max-w-2xl" in:fade={{ duration: 200, delay: 200 }}>
+				<Suggestions
+					className="grid grid-cols-1 md:grid-cols-2 gap-2"
+					suggestionPrompts={atSelectedModel?.info?.meta?.suggestion_prompts ??
+						models[selectedModelIdx]?.info?.meta?.suggestion_prompts ??
+						$config?.default_prompt_suggestions ??
+						[]}
+					{onSelect}
+				/>
+			</div>
 		</div>
 	</div>
 {/key}
