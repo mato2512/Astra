@@ -175,13 +175,14 @@
 						on:click={() => {
 							show = false;
 						}}
-						href="https://github.com/mato2512/Astra/releases"
+						href="https://github.com/open-webui/open-webui/releases"
 					>
 						<Map className="size-5" />
 						<div class="flex items-center">{$i18n.t('Releases')}</div>
 					</DropdownMenu.Item>
+				{/if}
 
-					<DropdownMenu.Item
+				<DropdownMenu.Item
 					class="flex gap-2 items-center py-1.5 px-3 text-sm select-none w-full  hover:bg-gray-50 dark:hover:bg-gray-800 rounded-xl transition cursor-pointer"
 					id="chat-share-button"
 					on:click={async () => {
@@ -195,10 +196,11 @@
 					}}
 				>
 					<Keyboard className="size-5" />
-						<div class="flex items-center">{$i18n.t('Keyboard shortcuts')}</div>
-					</DropdownMenu.Item>
-				{/if}
-			{/if}			<hr class=" border-gray-50 dark:border-gray-800 my-1 p-0" />
+					<div class="flex items-center">{$i18n.t('Keyboard shortcuts')}</div>
+				</DropdownMenu.Item>
+			{/if}
+
+			<hr class=" border-gray-50 dark:border-gray-800 my-1 p-0" />
 
 			<DropdownMenu.Item
 				class="flex rounded-xl py-1.5 px-3 w-full hover:bg-gray-50 dark:hover:bg-gray-800 transition"
@@ -217,7 +219,7 @@
 				<div class=" self-center truncate">{$i18n.t('Sign Out')}</div>
 			</DropdownMenu.Item>
 
-			{#if usage && $user?.role === 'admin'}
+			{#if usage}
 				{#if usage?.user_ids?.length > 0}
 					<hr class=" border-gray-50 dark:border-gray-800 my-1 p-0" />
 

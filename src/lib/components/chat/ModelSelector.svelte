@@ -66,9 +66,8 @@
 						bind:value={selectedModel}
 					/>
 				</div>
-		</div>
+			</div>
 
-		{#if $user?.role === 'admin'}
 			{#if $user?.role === 'admin' || ($user?.permissions?.chat?.multiple_models ?? true)}
 				{#if selectedModelIdx === 0}
 					<div
@@ -120,14 +119,15 @@
 									<path stroke-linecap="round" stroke-linejoin="round" d="M19.5 12h-15" />
 								</svg>
 							</button>
-				</Tooltip>
-			</div>
-		{/if}
-	{/if}
-{/if}
-	</div>
-{/each}
-</div>{#if showSetDefault}
+						</Tooltip>
+					</div>
+				{/if}
+			{/if}
+		</div>
+	{/each}
+</div>
+
+{#if showSetDefault}
 	<div
 		class="relative text-left mt-[1px] ml-1 text-[0.7rem] text-gray-600 dark:text-gray-400 font-primary"
 	>
