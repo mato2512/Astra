@@ -60,7 +60,8 @@
 		getTagsById,
 		updateChatById,
 		updateChatFolderIdById,
-		deleteChatById
+		deleteChatById,
+		archiveChatById
 	} from '$lib/apis/chats';
 	import { generateOpenAIChatCompletion } from '$lib/apis/openai';
 	import { processWeb, processWebSearch, processYoutubeVideo } from '$lib/apis/retrieval';
@@ -2280,6 +2281,26 @@
 		}
 	};
 
+	const archiveChatHandler = async (chatId) => {
+		if (chatId) {
+			const res = await archiveChatById(localStorage.token, chatId).catch((error) => {
+				toast.error(`${error}`);
+				return null;
+			});
+
+			if (res) {
+				currentChatPage.set(1);
+				await chats.set(await getChatList(localStorage.token, $currentChatPage));
+				await pinnedChats.set(await getPinnedChatList(localStorage.token));
+
+				await goto('/');
+				toast.success($i18n.t('Chat archived successfully'));
+			}
+		} else {
+			toast.error($i18n.t('Failed to archive chat'));
+		}
+	};
+
 	const deleteChatHandler = async (chatId) => {
 		if (chatId) {
 			const res = await deleteChatById(localStorage.token, chatId).catch((error) => {
@@ -2291,6 +2312,7 @@
 				currentChatPage.set(1);
 				await chats.set(await getChatList(localStorage.token, $currentChatPage));
 				await pinnedChats.set(await getPinnedChatList(localStorage.token));
+
 				await goto('/');
 				toast.success($i18n.t('Chat deleted successfully'));
 			}
@@ -2382,7 +2404,7 @@
 						bind:selectedModels
 						shareEnabled={!!history.currentId}
 						{initNewChat}
-						archiveChatHandler={() => {}}
+						{archiveChatHandler}
 						{moveChatHandler}
 						{deleteChatHandler}
 						onSaveTempChat={async () => {
