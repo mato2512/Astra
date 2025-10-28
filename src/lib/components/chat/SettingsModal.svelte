@@ -424,12 +424,12 @@
 			keywords: [
 				'about app',
 				'about me',
-				'about astra',
+				'about open webui',
 				'about page',
 				'about us',
 				'aboutapp',
 				'aboutme',
-				'aboutastra',
+				'aboutopenwebui',
 				'aboutpage',
 				'aboutus',
 				'check for updates',
@@ -485,11 +485,6 @@
 					$user?.role === 'admin' ||
 					($user?.role === 'user' && $user?.permissions?.features?.direct_tool_servers)
 				);
-			}
-
-			// Hide these tabs from non-admin users
-			if (tab.id === 'personalization' || tab.id === 'interface' || tab.id === 'audio' || tab.id === 'data_controls') {
-				return $user?.role === 'admin';
 			}
 
 			return true;
@@ -639,10 +634,9 @@
 								<div class=" self-center mr-2">
 									<SettingsAlt strokeWidth="2" />
 								</div>
-							<div class=" self-center">{$i18n.t('General')}</div>
-						</button>
-					{:else if tabId === 'interface'}
-						{#if $user?.role === 'admin'}
+								<div class=" self-center">{$i18n.t('General')}</div>
+							</button>
+						{:else if tabId === 'interface'}
 							<button
 								role="tab"
 								aria-controls="tab-interface"
@@ -666,8 +660,7 @@
 								</div>
 								<div class=" self-center">{$i18n.t('Interface')}</div>
 							</button>
-						{/if}
-					{:else if tabId === 'connections'}
+						{:else if tabId === 'connections'}
 							{#if $user?.role === 'admin' || ($user?.role === 'user' && $config?.features?.enable_direct_connections)}
 								<button
 									role="tab"
