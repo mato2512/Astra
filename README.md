@@ -1,419 +1,258 @@
 <div align="center">
 
-<img src="static/static/logo.png" alt="Astra AI Logo" width="180"/>
+<img src="static/static/logo.png" alt="Astra Logo" width="140"/>
 
-# Astra AI
+# Astra 👋
 
-### 🚀 Next-Generation AI Chat Platform
+![GitHub stars](https://img.shields.io/github/stars/mato2512/Astra?style=social)
+![GitHub forks](https://img.shields.io/github/forks/mato2512/Astra?style=social)
+![GitHub watchers](https://img.shields.io/github/watchers/mato2512/Astra?style=social)
+![GitHub repo size](https://img.shields.io/github/repo-size/mato2512/Astra)
+![GitHub language count](https://img.shields.io/github/languages/count/mato2512/Astra)
+![GitHub top language](https://img.shields.io/github/languages/top/mato2512/Astra)
+![GitHub last commit](https://img.shields.io/github/last-commit/mato2512/Astra?color=red)
 
-**Multi-Model LLM Interface with Custom Inference Optimization**
-
-[![GitHub Stars](https://img.shields.io/github/stars/mato2512/Astra?style=for-the-badge&logo=github)](https://github.com/mato2512/Astra)
-[![License](https://img.shields.io/badge/License-MIT-blue?style=for-the-badge)](./LICENSE)
-[![Docker](https://img.shields.io/badge/Docker-Ready-2496ED?style=for-the-badge&logo=docker&logoColor=white)](https://hub.docker.com)
-[![Python](https://img.shields.io/badge/Python-3.11+-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://python.org)
-
-[🌐 Live Demo](https://astra.ngts.tech) • [📚 Documentation](#-documentation) • [🤝 Contributing](#-contributing) • [💬 Support](#-support)
+**Astra is an extensible, feature-rich, and user-friendly self-hosted AI platform designed to operate entirely offline.** It supports various LLM runners like **Ollama**, **llama.cpp**, and **OpenAI-compatible APIs**, with **built-in inference engine** for RAG, making it a **powerful AI deployment solution**.
 
 </div>
 
 ---
 
-## 🌟 Overview
+## Key Features of Astra ⭐
 
-**Astra AI** is a powerful, self-hosted AI chat platform that combines the flexibility of multiple LLM backends with a modern, intuitive interface. Built with performance and cost-efficiency in mind, Astra supports both **llama.cpp** for optimized inference and **Ollama** for rapid model deployment.
+🚀 **Effortless Setup**: Install seamlessly using Docker or Kubernetes (kubectl, kustomize or helm) for a hassle-free experience with support for both `:ollama` and `:cuda` tagged images.
 
-### Why Astra?
+🤝 **Ollama/OpenAI API Integration**: Effortlessly integrate OpenAI-compatible APIs for versatile conversations alongside Ollama models. Customize the OpenAI API URL to link with **LMStudio, GroqCloud, Mistral, OpenRouter, and more**.
 
-- 💰 **90% Cost Reduction** - Self-hosted inference vs. cloud APIs
-- ⚡ **High Performance** - Optimized llama.cpp integration
-- 🔄 **Multi-Backend** - Switch between llama.cpp and Ollama seamlessly  
-- 🎨 **Modern UI** - Clean, responsive interface built with SvelteKit
-- 🔒 **Privacy First** - Your data stays on your infrastructure
-- 🐳 **Docker Ready** - One-command deployment
+🛡️ **Granular Permissions and User Groups**: By allowing administrators to create detailed user roles and permissions, we ensure a secure user environment. This granularity not only enhances security but also allows for customized user experiences, fostering a sense of ownership and responsibility amongst users.
 
----
+🔄 **SCIM 2.0 Support**: Enterprise-grade user and group provisioning through SCIM 2.0 protocol, enabling seamless integration with identity providers like Okta, Azure AD, and Google Workspace for automated user lifecycle management.
 
-## ✨ Key Features
+📱 **Responsive Design**: Enjoy a seamless experience across Desktop PC, Laptop, and Mobile devices.
 
-### 🤖 Multi-Model Support
-- **llama.cpp Integration** - Custom quantized models (GGUF) for optimal performance
-- **Ollama Support** - Quick model switching and updates
-- **OpenAI Compatible** - Works with any OpenAI-compatible API
-- **Model Management** - Easy model selection and configuration
+📱 **Progressive Web App (PWA) for Mobile**: Enjoy a native app-like experience on your mobile device with our PWA, providing offline access on localhost and a seamless user interface.
 
-### 💬 Advanced Chat Experience
-- **Real-time Streaming** - Live response generation
-- **Conversation Memory** - Persistent chat history
-- **Multi-turn Dialogues** - Context-aware conversations
-- **Markdown & Code** - Full syntax highlighting support
+✒️🔢 **Full Markdown and LaTeX Support**: Elevate your LLM experience with comprehensive Markdown and LaTeX capabilities for enriched interaction.
 
-### 📚 Document Intelligence
-- **RAG Support** - Upload and chat with your documents
-- **Multiple Formats** - PDF, DOCX, TXT, and more
-- **Vector Database** - ChromaDB integration for semantic search
-- **Web Scraping** - Extract and analyze web content
+🎤📹 **Hands-Free Voice/Video Call**: Experience seamless communication with integrated hands-free voice and video call features, allowing for a more dynamic and interactive chat environment.
 
-### 🛠️ Extensibility
-- **Custom Functions** - Python-based tool integration
-- **API Endpoints** - RESTful API for integrations
-- **Plugin System** - Extend functionality with custom plugins
-- **Webhook Support** - Connect with external services
+🛠️ **Model Builder**: Easily create Ollama models via the Web UI. Create and add custom characters/agents, customize chat elements, and import models effortlessly.
 
-### 👥 User Management
-- **Role-Based Access** - Admin, user, and custom roles
-- **Authentication** - Secure login with JWT tokens
-- **Multi-tenancy** - Isolated user workspaces
-- **Usage Tracking** - Monitor API calls and costs
+🐍 **Native Python Function Calling Tool**: Enhance your LLMs with built-in code editor support in the tools workspace. Bring Your Own Function (BYOF) by simply adding your pure Python functions, enabling seamless integration with LLMs.
 
-### 🎨 Customization
-- **Dark/Light Themes** - Multiple color schemes
-- **Custom Branding** - Your logo and colors
-- **Responsive Design** - Works on desktop, tablet, and mobile
-- **PWA Support** - Install as native app
+📚 **Local RAG Integration**: Dive into the future of chat interactions with groundbreaking Retrieval Augmented Generation (RAG) support. This feature seamlessly integrates document interactions into your chat experience. You can load documents directly into the chat or add files to your document library, effortlessly accessing them using the `#` command before a query.
+
+🔍 **Web Search for RAG**: Perform web searches using providers like `SearXNG`, `Google PSE`, `Brave Search`, `serpstack`, `serper`, `Serply`, `DuckDuckGo`, `TavilySearch`, `SearchApi` and `Bing` and inject the results directly into your chat experience.
+
+🌐 **Web Browsing Capability**: Seamlessly integrate websites into your chat experience using the `#` command followed by a URL. This feature allows you to incorporate web content directly into your conversations, enhancing the richness and depth of your interactions.
+
+🎨 **Image Generation Integration**: Seamlessly incorporate image generation capabilities using options such as AUTOMATIC1111 API or ComfyUI (local), and OpenAI's DALL-E (external), enriching your chat experience with dynamic visual content.
+
+⚙️ **Many Models Conversations**: Effortlessly engage with various models simultaneously, harnessing their unique strengths for optimal responses. Enhance your experience by leveraging a diverse set of models in parallel.
+
+🔐 **Role-Based Access Control (RBAC)**: Ensure secure access with restricted permissions; only authorized individuals can access your Ollama, and exclusive model creation/pulling rights are reserved for administrators.
+
+🌐🌍 **Multilingual Support**: Experience Astra in your preferred language with our internationalization (i18n) support. Join us in expanding our supported languages! We're actively seeking contributors!
+
+🧩 **Pipelines, Plugin Support**: Seamlessly integrate custom logic and Python libraries into Astra using Pipelines Plugin Framework. Launch your Pipelines instance, set the OpenAI URL to the Pipelines URL, and explore endless possibilities. Examples include **Function Calling**, User **Rate Limiting** to control access, **Usage Monitoring** with tools like Langfuse, **Live Translation with LibreTranslate** for multilingual support, **Toxic Message Filtering** and much more.
+
+🌟 **Continuous Updates**: We are committed to improving Astra with regular updates, fixes, and new features.
 
 ---
 
-## 🏗️ Architecture
+## How to Install 🚀
 
-```
-┌─────────────────────────────────────────────────────┐
-│           Astra Frontend (SvelteKit)                │
-│  - Modern UI with real-time updates                 │
-│  - Model selection & conversation management        │
-└────────────────────┬────────────────────────────────┘
-                     │
-┌────────────────────▼────────────────────────────────┐
-│           FastAPI Backend                           │
-│  - Request routing & authentication                 │
-│  - RAG processing & document handling               │
-│  - Unified API for multiple backends                │
-└──────────────┬──────────────────────┬───────────────┘
-               │                      │
-    ┌──────────▼────────┐  ┌─────────▼──────────┐
-    │   llama.cpp       │  │      Ollama        │
-    │  - GGUF models    │  │  - Quick models    │
-    │  - Quantization   │  │  - Easy updates    │
-    │  - High speed     │  │  - Model library   │
-    └───────────────────┘  └────────────────────┘
-```
+### Installation via Python pip 🐍
 
-### Tech Stack
+Astra can be installed using pip, the Python package installer. Before proceeding, ensure you're using **Python 3.11** to avoid compatibility issues.
 
-**Frontend**
-- ⚡ **SvelteKit** 2.5+ - Modern reactive framework
-- 🎨 **Tailwind CSS** 4.0 - Utility-first styling
-- 📘 **TypeScript** 5.5+ - Type-safe development
-- 🔥 **Vite** 5.4+ - Lightning-fast builds
+1. **Install Astra**:
+   Open your terminal and run the following command to install Astra:
 
-**Backend**
-- 🐍 **FastAPI** 0.118+ - High-performance Python API
-- 🗃️ **SQLAlchemy** 2.0+ - Modern ORM
-- 🔐 **JWT** - Secure authentication
-- 📊 **ChromaDB** - Vector database for RAG
+   ```bash
+   pip install open-webui
+   ```
 
-**AI/ML**
-- 🦙 **llama.cpp** - Optimized LLM inference
-- 🦙 **Ollama** - Model management
-- 🤗 **Transformers** - HuggingFace models
-- 📈 **Sentence Transformers** - Embeddings
+2. **Running Astra**:
+   After installation, you can start Astra by executing:
 
-**Infrastructure**
-- 🐳 **Docker** - Containerization
-- 🔄 **Docker Compose** - Multi-container orchestration
-- 🌐 **Nginx** - Reverse proxy
-- 🔒 **Let's Encrypt** - SSL certificates
+   ```bash
+   open-webui serve
+   ```
 
----
+This will start the Astra server, which you can access at [http://localhost:8080](http://localhost:8080)
 
-## 🚀 Quick Start
+### Quick Start with Docker 🐳
 
-### Prerequisites
+> [!NOTE]  
+> Please note that for certain Docker environments, additional configurations might be needed. If you encounter any connection issues, refer to the troubleshooting section below.
 
-- **Docker** & **Docker Compose** (recommended)
-- **Node.js** 22+ (for development)
-- **Python** 3.11+ (for development)
-- **4GB+ RAM** (8GB+ recommended)
+> [!WARNING]
+> When using Docker to install Astra, make sure to include the `-v open-webui:/app/backend/data` in your Docker command. This step is crucial as it ensures your database is properly mounted and prevents any loss of data.
 
-### 🐳 Docker Deployment (Recommended)
+> [!TIP]  
+> If you wish to utilize Astra with Ollama included or CUDA acceleration, we recommend utilizing our official images tagged with either `:cuda` or `:ollama`. To enable CUDA, you must install the [Nvidia CUDA container toolkit](https://docs.nvidia.com/dgx/nvidia-container-runtime-upgrade/) on your Linux/WSL system.
 
-**1. Clone the repository**
+#### Installation with Default Configuration
+
+- **If Ollama is on your computer**, use this command:
+
+  ```bash
+  docker run -d -p 3000:8080 --add-host=host.docker.internal:host-gateway -v open-webui:/app/backend/data --name astra --restart always ghcr.io/mato2512/astra:main
+  ```
+
+- **If Ollama is on a Different Server**, use this command:
+
+  To connect to Ollama on another server, change the `OLLAMA_BASE_URL` to the server's URL:
+
+  ```bash
+  docker run -d -p 3000:8080 -e OLLAMA_BASE_URL=https://example.com -v open-webui:/app/backend/data --name astra --restart always ghcr.io/mato2512/astra:main
+  ```
+
+- **To run Astra with Nvidia GPU support**, use this command:
+
+  ```bash
+  docker run -d -p 3000:8080 --gpus all --add-host=host.docker.internal:host-gateway -v open-webui:/app/backend/data --name astra --restart always ghcr.io/mato2512/astra:cuda
+  ```
+
+#### Installation for OpenAI API Usage Only
+
+- **If you're only using OpenAI API**, use this command:
+
+  ```bash
+  docker run -d -p 3000:8080 -e OPENAI_API_KEY=your_secret_key -v open-webui:/app/backend/data --name astra --restart always ghcr.io/mato2512/astra:main
+  ```
+
+#### Installing Astra with Bundled Ollama Support
+
+This installation method uses a single container image that bundles Astra with Ollama, allowing for a streamlined setup via a single command. Choose the appropriate command based on your hardware setup:
+
+- **With GPU Support**:
+  Utilize GPU resources by running the following command:
+
+  ```bash
+  docker run -d -p 3000:8080 --gpus=all -v ollama:/root/.ollama -v open-webui:/app/backend/data --name astra --restart always ghcr.io/mato2512/astra:ollama
+  ```
+
+- **For CPU Only**:
+  If you're not using a GPU, use this command instead:
+
+  ```bash
+  docker run -d -p 3000:8080 -v ollama:/root/.ollama -v open-webui:/app/backend/data --name astra --restart always ghcr.io/mato2512/astra:ollama
+  ```
+
+Both commands facilitate a built-in, hassle-free installation of both Astra and Ollama, ensuring that you can get everything up and running swiftly.
+
+After installation, you can access Astra at [http://localhost:3000](http://localhost:3000). Enjoy! 😄
+
+### Other Installation Methods
+
+We offer various installation alternatives, including non-Docker native installation methods, Docker Compose, Kustomize, and Helm.
+
+**Docker Compose Example:**
+
 ```bash
+# Clone the repository
 git clone https://github.com/mato2512/Astra.git
 cd Astra
-```
 
-**2. Run with Docker Compose**
-```bash
-# For production deployment
-docker compose -f docker-compose.prod.yaml up -d
-
-# Or for development
+# Start with Docker Compose
 docker compose up -d
-```
 
-**3. Access Astra**
-```
-http://localhost:3000
-```
-
-That's it! 🎉
-
-### ⚙️ Configuration
-
-Create a `.env` file in the backend directory:
-
-```env
-# Database
-DATABASE_URL=sqlite:///data/webui.db
-
-# Ollama
-OLLAMA_BASE_URL=http://localhost:11434
-
-# OpenAI (optional)
-OPENAI_API_KEY=your_api_key_here
-
-# Application
-WEBUI_NAME=Astra AI
-WEBUI_SECRET_KEY=generate_a_secure_key_here
-
-# Authentication
-ENABLE_SIGNUP=True
-DEFAULT_USER_ROLE=user
-```
-
-### 🔧 Environment Variables
-
-| Variable | Description | Default |
-|----------|-------------|---------|
-| `OLLAMA_BASE_URL` | Ollama API endpoint | `http://localhost:11434` |
-| `OPENAI_API_KEY` | OpenAI API key (optional) | - |
-| `DATABASE_URL` | Database connection string | `sqlite:///data/webui.db` |
-| `WEBUI_SECRET_KEY` | JWT secret key | Required |
-| `ENABLE_SIGNUP` | Allow new user registration | `True` |
-| `DEFAULT_USER_ROLE` | Default role for new users | `user` |
-
----
-
-## 📦 Installation Methods
-
-### Method 1: Docker Compose (Production)
-
-```bash
-# Clone repository
-git clone https://github.com/mato2512/Astra.git
-cd Astra
-
-# Start services
+# Or for production
 docker compose -f docker-compose.prod.yaml up -d
-
-# View logs
-docker compose logs -f
-
-# Stop services
-docker compose down
-```
-
-### Method 2: Local Development
-
-**Frontend**
-```bash
-# Install dependencies
-npm install --legacy-peer-deps
-
-# Run development server
-npm run dev
-# Access: http://localhost:5173
-```
-
-**Backend**
-```bash
-cd backend
-
-# Create virtual environment
-python -m venv venv
-source venv/bin/activate  # Linux/Mac
-# or
-.\venv\Scripts\activate  # Windows
-
-# Install dependencies
-pip install -r requirements.txt
-
-# Run backend
-cd open_webui
-uvicorn main:app --host 0.0.0.0 --port 8080 --reload
-# Access: http://localhost:8080
-```
-
-### Method 3: Docker Hub (Coming Soon)
-
-```bash
-docker run -d \
-  -p 3000:3000 \
-  -v astra-data:/app/data \
-  -e OLLAMA_BASE_URL=http://host.docker.internal:11434 \
-  yourusername/astra:latest
 ```
 
 ---
 
-## 🎯 Usage
+## Troubleshooting
 
-### Setting Up Your First Model
+### Astra: Server Connection Error
 
-1. **Start Ollama** (if not using Docker bundled version)
-   ```bash
-   ollama serve
-   ```
+If you're experiencing connection issues, it's often due to the WebUI docker container not being able to reach the Ollama server at 127.0.0.1:11434 (host.docker.internal:11434) inside the container. Use the `--network=host` flag in your docker command to resolve this. Note that the port changes from 3000 to 8080, resulting in the link: `http://localhost:8080`.
 
-2. **Pull a model**
-   ```bash
-   ollama pull llama2:7b
-   # or
-   ollama pull mistral:7b
-   ```
-
-3. **Access Astra** at `http://localhost:3000`
-
-4. **Select Model** from the dropdown in the chat interface
-
-5. **Start Chatting!** 🎉
-
-### Using llama.cpp Models
-
-1. **Download GGUF model** from HuggingFace
-   ```bash
-   wget https://huggingface.co/...your-model.gguf
-   ```
-
-2. **Place in models directory**
-   ```bash
-   mkdir -p backend/data/models
-   mv your-model.gguf backend/data/models/
-   ```
-
-3. **Configure backend** to use llama.cpp
-
-4. **Select model** in Astra UI
-
-### Document Chat (RAG)
-
-1. Click **📁 Upload Document** in chat
-2. Select PDF, DOCX, or TXT file
-3. Use `#document-name` to reference in chat
-4. Ask questions about your document!
-
----
-
-## 🔒 Security
-
-- ✅ **JWT Authentication** - Secure token-based auth
-- ✅ **Password Hashing** - Argon2 encryption
-- ✅ **RBAC** - Role-based access control
-- ✅ **CORS Protection** - Configured origins only
-- ✅ **Rate Limiting** - Prevent abuse
-- ✅ **SQL Injection Protection** - Parameterized queries
-
----
-
-## 📊 Performance
-
-### Benchmark Results
-
-| Backend | Model | Tokens/sec | Response Time | Memory |
-|---------|-------|-----------|---------------|---------|
-| llama.cpp | Llama-2-7B-Q4 | 45-60 | ~2s | 4.8GB |
-| llama.cpp | Mistral-7B-Q5 | 40-55 | ~2.5s | 5.2GB |
-| Ollama | Llama-2-7B | 35-50 | ~3s | 5.5GB |
-| OpenAI API | GPT-3.5 | Varies | ~1.5s | N/A |
-
-*Tested on: Intel i7-10700, 16GB RAM, No GPU*
-
-### Cost Comparison
-
-| Solution | Monthly Cost (10K requests) |
-|----------|---------------------------|
-| **Astra (Self-hosted)** | **~$50** (server costs) |
-| OpenAI GPT-3.5 | ~$200 |
-| Anthropic Claude | ~$400 |
-| Google Gemini | ~$150 |
-
-**Savings: 75-90%** 💰
-
----
-
-## 🛠️ Development
-
-### Project Structure
-
-```
-Astra/
-├── backend/                # FastAPI backend
-│   ├── open_webui/        # Main application
-│   │   ├── models/        # Database models
-│   │   ├── routers/       # API routes
-│   │   ├── utils/         # Utilities
-│   │   └── main.py        # Entry point
-│   └── requirements.txt   # Python deps
-├── src/                   # SvelteKit frontend
-│   ├── lib/              # Components
-│   │   ├── components/   # UI components
-│   │   ├── stores/       # State management
-│   │   └── utils/        # Helper functions
-│   └── routes/           # Pages
-├── static/               # Static assets
-├── docker-compose.yaml   # Docker config
-├── Dockerfile           # Container image
-└── package.json         # Node.js deps
-```
-
-### Building from Source
+**Example Docker Command**:
 
 ```bash
-# Clone repository
-git clone https://github.com/mato2512/Astra.git
-cd Astra
-
-# Build frontend
-npm install --legacy-peer-deps
-npm run build
-
-# Build Docker image
-docker build -t astra:latest .
-
-# Run container
-docker run -d -p 3000:8080 astra:latest
+docker run -d --network=host -v open-webui:/app/backend/data -e OLLAMA_BASE_URL=http://127.0.0.1:11434 --name astra --restart always ghcr.io/mato2512/astra:main
 ```
 
-### Running Tests
+### Keeping Your Docker Installation Up-to-Date
+
+In case you want to update your local Docker installation to the latest version, you can do it with [Watchtower](https://containrrr.dev/watchtower/):
 
 ```bash
-# Frontend tests
-npm run test
-
-# Backend tests
-cd backend
-pytest
-
-# E2E tests
-npm run test:e2e
+docker run --rm --volume /var/run/docker.sock:/var/run/docker.sock containrrr/watchtower --run-once astra
 ```
+
+In the last part of the command, replace `astra` with your container name if it is different.
+
+### Using the Dev Branch 🌙
+
+> [!WARNING]
+> The `:dev` branch contains the latest unstable features and changes. Use it at your own risk as it may have bugs or incomplete features.
+
+If you want to try out the latest bleeding-edge features and are okay with occasional instability, you can use the `:dev` tag like this:
+
+```bash
+docker run -d -p 3000:8080 -v open-webui:/app/backend/data --name astra --add-host=host.docker.internal:host-gateway --restart always ghcr.io/mato2512/astra:dev
+```
+
+### Offline Mode
+
+If you are running Astra in an offline environment, you can set the `HF_HUB_OFFLINE` environment variable to `1` to prevent attempts to download models from the internet.
+
+```bash
+export HF_HUB_OFFLINE=1
+```
+
+---
+
+## What's Next? 🌟
+
+### Roadmap
+
+- [ ] Enhanced model fine-tuning interface
+- [ ] Advanced analytics and monitoring dashboard
+- [ ] Mobile application (React Native)
+- [ ] Improved voice and video capabilities
+- [ ] Extended multi-language support
+- [ ] Plugin marketplace
+- [ ] Team collaboration features
+
+---
+
+## 🛠️ Technology Stack
+
+**Frontend:**
+- SvelteKit 2.5+ - Modern web framework
+- Tailwind CSS 4.0 - Utility-first styling
+- TypeScript 5.5+ - Type safety
+- Vite 5.4+ - Fast builds
+
+**Backend:**
+- FastAPI 0.118+ - Python web framework
+- SQLAlchemy 2.0+ - Database ORM
+- ChromaDB - Vector database for RAG
+- Redis - Caching and sessions
+
+**AI/ML:**
+- llama.cpp - Optimized LLM inference
+- Ollama - Model management
+- Transformers - HuggingFace models
+- Sentence Transformers - Embeddings
+
+**Infrastructure:**
+- Docker - Containerization
+- Nginx - Reverse proxy
+- PostgreSQL - Production database
+- Let's Encrypt - SSL certificates
 
 ---
 
 ## 🤝 Contributing
 
-We welcome contributions! Here's how you can help:
-
-### Ways to Contribute
-
-- 🐛 **Report bugs** - Open an issue with details
-- 💡 **Suggest features** - Share your ideas
-- 📝 **Improve docs** - Help others understand
-- 🔧 **Submit PRs** - Fix issues or add features
-- ⭐ **Star the repo** - Show your support!
-
-### Contribution Process
+Contributions are welcome! Here's how you can help:
 
 1. **Fork** the repository
 2. **Create** a feature branch (`git checkout -b feature/amazing-feature`)
@@ -421,125 +260,39 @@ We welcome contributions! Here's how you can help:
 4. **Push** to branch (`git push origin feature/amazing-feature`)
 5. **Open** a Pull Request
 
-### Code Style
+### Ways to Contribute
 
-- **Frontend**: Follow ESLint and Prettier configs
-- **Backend**: Follow PEP 8 and use Black formatter
-- **Commits**: Use conventional commit messages
-
----
-
-## 📚 Documentation
-
-### Guides
-
-- [Installation Guide](./docs/INSTALLATION.md)
-- [Configuration Guide](./docs/CONFIGURATION.md)
-- [API Documentation](./docs/API.md)
-- [Development Guide](./docs/DEVELOPMENT.md)
-- [Deployment Guide](./DIGITAL_OCEAN_SETUP.txt)
-
-### Resources
-
-- [Troubleshooting](./TROUBLESHOOTING.md)
-- [FAQ](./docs/FAQ.md)
-- [Changelog](./CHANGELOG.md)
-- [Roadmap](./docs/ROADMAP.md)
-
----
-
-## 🗺️ Roadmap
-
-### ✅ Completed
-
-- [x] Multi-model backend support (llama.cpp + Ollama)
-- [x] Modern SvelteKit UI
-- [x] RAG with document upload
-- [x] User authentication and RBAC
-- [x] Docker deployment
-- [x] Custom branding
-
-### 🚧 In Progress
-
-- [ ] Model fine-tuning interface
-- [ ] Advanced analytics dashboard
-- [ ] Mobile app (React Native)
-- [ ] Voice input/output
-- [ ] Multi-language support
-
-### 📋 Planned
-
-- [ ] Plugin marketplace
-- [ ] Team collaboration features
-- [ ] Advanced RAG with multiple sources
-- [ ] Cost tracking per user
-- [ ] API key management
-- [ ] Kubernetes deployment
-- [ ] Model performance comparison
-- [ ] Custom model training pipeline
+- 🐛 Report bugs and issues
+- 💡 Suggest new features
+- 📝 Improve documentation
+- 🔧 Submit pull requests
+- ⭐ Star the repository
 
 ---
 
 ## 📄 License
 
-This project is licensed under the **MIT License** - see the [LICENSE](./LICENSE) file for details.
+This project is licensed under the MIT License - see the [LICENSE](./LICENSE) file for details.
 
-### Third-Party Licenses
-
-This project uses code from various open-source projects. See [LICENSE_HISTORY](./LICENSE_HISTORY) for detailed attribution.
-
----
-
-## 🙏 Acknowledgments
-
-Special thanks to:
-
-- **Open WebUI** - Original framework foundation
-- **Ollama** - Easy LLM deployment
-- **llama.cpp** - Efficient inference engine
-- **SvelteKit** - Modern web framework
-- **FastAPI** - High-performance Python framework
-- **HuggingFace** - Model hosting and transformers
-- **Open Source Community** - For amazing tools and libraries
+For a detailed record of license changes and applicable terms, please refer to [LICENSE_HISTORY](./LICENSE_HISTORY).
 
 ---
 
 ## 💬 Support
 
-### Get Help
+If you have any questions, suggestions, or need assistance:
 
 - 📧 **Email**: [prasad@ngts.tech](mailto:prasad@ngts.tech)
 - 🐛 **Issues**: [GitHub Issues](https://github.com/mato2512/Astra/issues)
 - 💬 **Discussions**: [GitHub Discussions](https://github.com/mato2512/Astra/discussions)
-
-### Community
-
-- ⭐ **Star** this repo to show support
-- 🔀 **Fork** to create your own version
-- 📢 **Share** with others who might benefit
-
----
-
-## 📈 Stats
-
-![GitHub repo size](https://img.shields.io/github/repo-size/mato2512/Astra?style=flat-square)
-![GitHub language count](https://img.shields.io/github/languages/count/mato2512/Astra?style=flat-square)
-![GitHub last commit](https://img.shields.io/github/last-commit/mato2512/Astra?style=flat-square)
-![GitHub issues](https://img.shields.io/github/issues/mato2512/Astra?style=flat-square)
-![GitHub pull requests](https://img.shields.io/github/issues-pr/mato2512/Astra?style=flat-square)
+- 🌐 **Live Demo**: [astra.ngts.tech](https://astra.ngts.tech)
 
 ---
 
 <div align="center">
 
-### Built with ❤️ by [Prasad Navale](https://github.com/mato2512)
+**Created by [Prasad Navale](https://github.com/mato2512) - Let's make Astra even more amazing together!** 💪
 
-**Astra AI** - Democratizing AI, One Chat at a Time
-
-[⬆ Back to Top](#astra-ai)
-
----
-
-**© 2025 Prasad Navale. All rights reserved.**
+![Visitor Count](https://visitor-badge.laobi.icu/badge?page_id=mato2512.Astra)
 
 </div>
