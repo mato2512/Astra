@@ -105,14 +105,10 @@
 	const unarchiveHandler = async (chatId) => {
 		const res = await archiveChatById(localStorage.token, chatId).catch((error) => {
 			toast.error(`${error}`);
-			return null;
 		});
 
-		if (res) {
-			toast.success($i18n.t('Chat unarchived successfully'));
-			onUpdate();
-			await init();
-		}
+		onUpdate();
+		init();
 	};
 
 	const unarchiveAllHandler = async () => {
