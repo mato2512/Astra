@@ -540,7 +540,7 @@
 				{/if}
 			</div>
 
-			<div class="px-2.5 max-h-64 overflow-y-auto group relative">
+			<div class="px-3 py-2 max-h-[28rem] overflow-y-auto">
 				{#each filteredItems as item, index}
 					<ModelItem
 						{selectedModelIdx}
@@ -557,10 +557,8 @@
 						}}
 					/>
 				{:else}
-					<div class="">
-						<div class="block px-3 py-2 text-sm text-gray-700 dark:text-gray-100">
-							{$i18n.t('No results found')}
-						</div>
+					<div class="px-3 py-2 text-sm text-gray-500 dark:text-gray-400">
+						{$i18n.t('No results found')}
 					</div>
 				{/each}
 
