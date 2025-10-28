@@ -228,11 +228,11 @@
 					bind:atSelectedModel
 					bind:showCommands
 					{toolServers}
-					{stopResponse}
-					{createMessagePair}
-					placeholder={$i18n.t('How can I help you today?')}
-					{onChange}
-					on:upload={(e) => {
+				{stopResponse}
+				{createMessagePair}
+				placeholder={$i18n.t('Ask Astra')}
+				{onChange}
+				on:upload={(e) => {
 						dispatch('upload', e.detail);
 					}}
 					on:submit={(e) => {
