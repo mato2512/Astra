@@ -1037,7 +1037,7 @@
 						/>
 					{:else}
 						<form
-							class="w-full flex flex-col gap-1.5"
+							class="w-full flex flex-col gap-1.5 mx-auto max-w-3xl px-4"
 							on:submit|preventDefault={() => {
 								// check if selectedModels support image input
 								dispatch('submit', prompt);
@@ -1205,7 +1205,7 @@
 																navigator.maxTouchPoints > 0 ||
 																navigator.msMaxTouchPoints > 0
 															)}
-														placeholder={placeholder ? placeholder : 'Ask Astra'}
+														placeholder={placeholder ? placeholder : $i18n.t('Ask anything')}
 														largeTextAsFile={($settings?.largeTextAsFile ?? false) && !shiftKey}
 														autocomplete={$config?.features?.enable_autocomplete_generation &&
 															($settings?.promptAutocomplete ?? false)}
