@@ -135,8 +135,18 @@
 	};
 
 	const archiveChatHandler = async (id) => {
-		await archiveChatById(localStorage.token, id);
-		dispatch('change');
+		const res = await archiveChatById(localStorage.token, id).catch((error) => {
+			toast.error(`${error}`);
+			return null;
+		});
+
+		if (res) {
+			currentChatPage.set(1);
+			await chats.set(await getChatList(localStorage.token, $currentChatPage));
+			await pinnedChats.set(await getPinnedChatList(localStorage.token));
+			dispatch('change');
+			toast.success($i18n.t('Chat archived successfully'));
+		}
 	};
 
 	const moveChatHandler = async (chatId, folderId) => {
