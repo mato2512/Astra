@@ -62,11 +62,35 @@
 	let models = [];
 	let selectedModelIdx = 0;
 
+	// ChatGPT-like random greeting titles
+	const greetingTitles = [
+		'What are you working on?',
+		"What's on your mind today?",
+		'Hey, {{name}}. Ready to dive in?',
+		'Where should we begin?',
+		'How can I help, {{name}}?',
+		'Ready when you are.',
+		'Good to see you, {{name}}.',
+		'What would you like to create?',
+		'Let\'s get started.',
+		'What can I help with?'
+	];
+
+	let randomGreeting = '';
+
 	$: if (selectedModels.length > 0) {
 		selectedModelIdx = models.length - 1;
 	}
 
 	$: models = selectedModels.map((id) => $_models.find((m) => m.id === id));
+
+	onMount(() => {
+		// Select a random greeting on mount
+		const randomIndex = Math.floor(Math.random() * greetingTitles.length);
+		const greeting = greetingTitles[randomIndex];
+		// Replace {{name}} with actual user name
+		randomGreeting = greeting.replace('{{name}}', $user?.name || 'there');
+	});
 </script>
 
 <div class="m-auto w-full max-w-6xl px-2 @2xl:px-20 translate-y-6 py-24 text-center">
@@ -140,19 +164,7 @@
 						class=" text-3xl @sm:text-3xl line-clamp-1 flex items-center"
 						in:fade={{ duration: 100 }}
 					>
-						{#if models[selectedModelIdx]?.name}
-							<Tooltip
-								content={models[selectedModelIdx]?.name}
-								placement="top"
-								className=" flex items-center "
-							>
-								<span class="line-clamp-1">
-									{models[selectedModelIdx]?.name}
-								</span>
-							</Tooltip>
-						{:else}
-							{$i18n.t('Hello, {{name}}', { name: $user?.name })}
-						{/if}
+						{randomGreeting}
 					</div>
 				</div>
 

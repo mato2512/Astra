@@ -23,6 +23,22 @@
 	let mounted = false;
 	let selectedModelIdx = 0;
 
+	// ChatGPT-like random greeting titles
+	const greetingTitles = [
+		'What are you working on?',
+		"What's on your mind today?",
+		'Hey, {{name}}. Ready to dive in?',
+		'Where should we begin?',
+		'How can I help, {{name}}?',
+		'Ready when you are.',
+		'Good to see you, {{name}}.',
+		'What would you like to create?',
+		'Let\'s get started.',
+		'What can I help with?'
+	];
+
+	let randomGreeting = '';
+
 	$: if (modelIds.length > 0) {
 		selectedModelIdx = models.length - 1;
 	}
@@ -31,6 +47,11 @@
 
 	onMount(() => {
 		mounted = true;
+		// Select a random greeting on mount
+		const randomIndex = Math.floor(Math.random() * greetingTitles.length);
+		const greeting = greetingTitles[randomIndex];
+		// Replace {{name}} with actual user name
+		randomGreeting = greeting.replace('{{name}}', $user?.name || 'there');
 	});
 </script>
 
@@ -85,11 +106,7 @@
 		>
 			<div>
 				<div class=" capitalize line-clamp-1" in:fade={{ duration: 200 }}>
-					{#if models[selectedModelIdx]?.name}
-						{models[selectedModelIdx]?.name}
-					{:else}
-						{$i18n.t('Hello, {{name}}', { name: $user?.name })}
-					{/if}
+					{randomGreeting}
 				</div>
 
 				<div in:fade={{ duration: 200, delay: 200 }}>
@@ -119,10 +136,6 @@
 								{/if}
 							</div>
 						{/if}
-					{:else}
-						<div class=" text-gray-400 dark:text-gray-500 line-clamp-1 font-p">
-							{$i18n.t('How can I help you today?')}
-						</div>
 					{/if}
 				</div>
 			</div>
