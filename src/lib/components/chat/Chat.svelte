@@ -2487,9 +2487,9 @@
 								/>
 
 								<div
-									class="absolute bottom-1 text-xs text-gray-500 text-center line-clamp-1 right-0 left-0"
+									class="absolute bottom-2 text-xs text-gray-500 dark:text-gray-400 text-center w-full px-4 py-2"
 								>
-									Astra can make mistakes. Check important info.
+									Astra can make mistakes, so double-check it.
 								</div>
 							</div>
 						{:else}
