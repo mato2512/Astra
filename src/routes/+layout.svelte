@@ -312,15 +312,11 @@
 					});
 				}
 			} else if (type === 'chat:title') {
-			currentChatPage.set(1);
-			await chats.set(await getChatList(localStorage.token, $currentChatPage));
-		} else if (type === 'chat:tags') {
-			tags.set(await getAllTags(localStorage.token));
-		} else if (type === 'chat:archive' || type === 'chat:unarchive' || type === 'chat:delete' || type === 'chat:create') {
-			currentChatPage.set(1);
-			await chats.set(await getChatList(localStorage.token, $currentChatPage));
-			await pinnedChats.set(await getPinnedChatList(localStorage.token));
-		}
+				currentChatPage.set(1);
+				await chats.set(await getChatList(localStorage.token, $currentChatPage));
+			} else if (type === 'chat:tags') {
+				tags.set(await getAllTags(localStorage.token));
+			}
 		} else if (data?.session_id === $socket.id) {
 			if (type === 'execute:python') {
 				console.log('execute:python', data);
