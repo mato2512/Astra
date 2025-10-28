@@ -199,20 +199,16 @@
 				<div class=" self-center text-xs font-medium">{$i18n.t('Theme')}</div>
 				<div class="flex items-center relative">
 					<select
-						class="dark:bg-gray-900 w-fit pr-8 rounded-sm py-2 px-2 text-xs bg-transparent text-right {$settings.highContrastMode
-							? ''
-							: 'outline-hidden'}"
+						class="dark:bg-gray-900 w-fit pr-8 rounded-lg py-2 px-3 text-xs bg-transparent outline-none border border-gray-300 dark:border-gray-600"
 						bind:value={selectedTheme}
 						placeholder={$i18n.t('Select a theme')}
 						on:change={() => themeChangeHandler(selectedTheme)}
 					>
-						<option value="system">⚙️ {$i18n.t('System')}</option>
-						<option value="dark">🌑 {$i18n.t('Dark')}</option>
-						<option value="oled-dark">🌃 {$i18n.t('OLED Dark')}</option>
-						<option value="light">☀️ {$i18n.t('Light')}</option>
-						<option value="her">🌷 Her</option>
-						<!-- <option value="rose-pine dark">🪻 {$i18n.t('Rosé Pine')}</option>
-						<option value="rose-pine-dawn light">🌷 {$i18n.t('Rosé Pine Dawn')}</option> -->
+						<option value="system">⚙️ System</option>
+						<option value="dark">� Dark</option>
+						<option value="oled-dark">⬛ OLED Dark</option>
+						<option value="light">☀️ Light</option>
+						<option value="her">💐 Her</option>
 					</select>
 				</div>
 			</div>
@@ -273,7 +269,7 @@
 			</div>
 		{/if}
 
-		{#if $user?.role === 'admin' || ($user?.permissions.chat?.controls ?? true)}
+		{#if $user?.role === 'admin'}
 			<div class="mt-2 space-y-3 pr-1.5">
 				<div class="flex justify-between items-center text-sm">
 					<div class="  font-medium">{$i18n.t('Advanced Parameters')}</div>

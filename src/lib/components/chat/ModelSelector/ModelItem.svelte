@@ -64,6 +64,8 @@
 					`${WEBUI_BASE_URL}/static/favicon.png`}
 				alt="Model"
 				class="rounded-full size-6"
+				loading="lazy"
+				decoding="async"
 			/>
 		</div>
 
