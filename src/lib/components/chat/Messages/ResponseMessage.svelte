@@ -607,7 +607,32 @@
 		id="message-{message.id}"
 		dir={$settings.chatDirection}
 	>
-		<div class={`shrink-0 ltr:mr-3 rtl:ml-3 hidden @lg:flex mt-1 `}>
+		<div class={`shrink-0 ltr:mr-3 rtl:ml-3 hidden @lg:flex mt-1 relative`}>
+			{#if message.content === '' && !message.done}
+				<!-- Animated ring loader -->
+				<div class="absolute inset-0 rounded-full">
+					<svg class="size-8 -rotate-90" viewBox="0 0 36 36">
+						<circle
+							cx="18"
+							cy="18"
+							r="16"
+							fill="none"
+							class="stroke-current text-blue-500 dark:text-blue-400"
+							stroke-width="2"
+							stroke-dasharray="100"
+							stroke-dashoffset="0"
+							stroke-linecap="round"
+						>
+							<animate
+								attributeName="stroke-dashoffset"
+								values="0;100"
+								dur="1.5s"
+								repeatCount="indefinite"
+							/>
+						</circle>
+					</svg>
+				</div>
+			{/if}
 			<ProfileImage
 				src={model?.info?.meta?.profile_image_url ??
 					($i18n.language === 'dg-DG'
@@ -619,11 +644,17 @@
 
 		<div class="flex-auto w-0 pl-1 relative">
 			<Name>
-				<Tooltip content={model?.name ?? message.model} placement="top-start">
-					<span class="line-clamp-1 text-black dark:text-white">
-						{model?.name ?? message.model}
+				{#if message.content === '' && !message.done}
+					<span class="line-clamp-1 text-gray-600 dark:text-gray-400">
+						Just a second...
 					</span>
-				</Tooltip>
+				{:else}
+					<Tooltip content={model?.name ?? message.model} placement="top-start">
+						<span class="line-clamp-1 text-black dark:text-white">
+							{model?.name ?? message.model}
+						</span>
+					</Tooltip>
+				{/if}
 
 				{#if message.timestamp}
 					<div
@@ -755,10 +786,7 @@
 						{:else}
 							<div class="w-full flex flex-col relative" id="response-content-container">
 								{#if message.content === '' && !message.error && ((model?.info?.meta?.capabilities?.status_updates ?? true) ? (message?.statusHistory ?? [...(message?.status ? [message?.status] : [])]).length === 0 || (message?.statusHistory?.at(-1)?.hidden ?? false) : true)}
-									<div class="flex items-center gap-2 text-gray-600 dark:text-gray-400 py-2">
-										<span class="text-sm">Just a second...</span>
-										<Skeleton />
-									</div>
+									<Skeleton />
 								{:else if message.content && message.error !== true}
 									<!-- always show message contents even if there's an error -->
 									<!-- unless message.error === true which is legacy error handling, where the error message is stored in message.content -->
