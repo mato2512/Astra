@@ -515,8 +515,8 @@
 						</Tooltip>
 					{/if}
 
-					{#if $_user?.role === 'admin' || ($_user?.permissions?.chat?.delete_message ?? false)}
-						{#if !readOnly && (!isFirstMessage || siblings.length > 1)}
+			{#if $_user?.role === 'admin'}
+				{#if !readOnly && (!isFirstMessage || siblings.length > 1)}
 							<Tooltip content={$i18n.t('Delete')} placement="bottom">
 								<button
 									class="{($settings?.highContrastMode ?? false)
