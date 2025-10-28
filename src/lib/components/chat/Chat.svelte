@@ -2529,9 +2529,7 @@
 									}}
 								/>
 
-								<div
-									class="absolute bottom-2 text-xs text-gray-500 dark:text-gray-400 text-center w-full px-4 py-2"
-								>
+								<div class="text-xs text-gray-500 dark:text-gray-400 text-center w-full px-4 py-2 mt-2">
 									Astra can make mistakes, so double-check it.
 								</div>
 							</div>
