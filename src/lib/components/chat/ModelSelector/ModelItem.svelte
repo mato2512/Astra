@@ -225,10 +225,11 @@
 				</div>
 			</Tooltip>
 		{/if}
-	{/if}
+		{/if}
 		</div>
 	</div>
-</div>	<div class="ml-auto pl-2 pr-1 flex items-center gap-1.5 shrink-0">
+
+	<div class="ml-auto pl-2 pr-1 flex items-center gap-1.5 shrink-0">
 		{#if $user?.role === 'admin' && item.model.owned_by === 'ollama' && item.model.ollama?.expires_at && new Date(item.model.ollama?.expires_at * 1000) > new Date()}
 			<Tooltip
 				content={`${$i18n.t('Eject')}`}
