@@ -2,15 +2,6 @@
 <html lang="en">
 	<head>
 		<meta charset="utf-8" />
-		
-		<!-- DNS Prefetch & Preconnect for faster connections -->
-		<link rel="dns-prefetch" href="https://fonts.googleapis.com" />
-		<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
-		
-		<!-- Preload critical assets -->
-		<link rel="preload" href="/static/favicon.png" as="image" type="image/png" />
-		<link rel="preload" href="/static/custom.css" as="style" />
-		
 		<link rel="icon" type="image/png" href="/static/favicon.png" crossorigin="use-credentials" />
 		<link
 			rel="icon"
@@ -44,22 +35,6 @@
 		/>
 		<meta name="theme-color" content="#171717" />
 		<meta name="robots" content="noindex,nofollow" />
-
-		<!-- Register Service Worker for offline support and caching -->
-		<script>
-			if ('serviceWorker' in navigator) {
-				window.addEventListener('load', () => {
-					navigator.serviceWorker.register('/sw.js').then(
-						(registration) => {
-							console.log('ServiceWorker registered:', registration.scope);
-						},
-						(err) => {
-							console.log('ServiceWorker registration failed:', err);
-						}
-					);
-				});
-			}
-		</script>
 
 		<script src="/static/loader.js" defer crossorigin="use-credentials"></script>
 		<link rel="stylesheet" href="/static/custom.css" crossorigin="use-credentials" />
