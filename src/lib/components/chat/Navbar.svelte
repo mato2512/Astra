@@ -38,6 +38,7 @@
 	import ChatPlus from '../icons/ChatPlus.svelte';
 	import ChatCheck from '../icons/ChatCheck.svelte';
 	import Knobs from '../icons/Knobs.svelte';
+	import Share from '../icons/Share.svelte';
 
 	const i18n = getContext('i18n');
 
@@ -52,6 +53,7 @@
 	export let onSaveTempChat: () => {};
 	export let archiveChatHandler: (id: string) => void;
 	export let moveChatHandler: (id: string, folderId: string) => void;
+	export let deleteChatHandler: (id: string) => void;
 
 	let closedBannerIds = [];
 
@@ -179,29 +181,45 @@
 					{/if}
 
 					{#if shareEnabled && chat && (chat.id || $temporaryChatEnabled)}
-						<Menu
-							{chat}
-							{shareEnabled}
-							shareHandler={() => {
-								showShareChatModal = !showShareChatModal;
-							}}
-							archiveChatHandler={() => {
-								archiveChatHandler(chat.id);
-							}}
-							{moveChatHandler}
-						>
+						<Tooltip content={$i18n.t('Share')}>
 							<button
 								class="flex cursor-pointer px-2 py-2 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-850 transition"
-								id="chat-context-menu-button"
+								id="share-chat-button"
+								on:click={() => {
+									showShareChatModal = !showShareChatModal;
+								}}
 							>
 								<div class=" m-auto self-center">
-									<EllipsisHorizontal className=" size-5" strokeWidth="1.5" />
+									<Share className=" size-4.5" strokeWidth="1.5" />
 								</div>
 							</button>
-						</Menu>
-				{/if}
+						</Tooltip>
 
-				{#if $user?.role === 'admin'}
+
+					<Menu
+						{chat}
+						{shareEnabled}
+						shareHandler={() => {
+							showShareChatModal = !showShareChatModal;
+						}}
+						archiveChatHandler={() => {
+							archiveChatHandler(chat.id);
+						}}
+						deleteChatHandler={() => {
+							deleteChatHandler(chat.id);
+						}}
+						{moveChatHandler}
+					>
+						<button
+							class="flex cursor-pointer px-2 py-2 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-850 transition"
+							id="chat-context-menu-button"
+						>
+							<div class=" m-auto self-center">
+								<EllipsisHorizontal className=" size-5" strokeWidth="1.5" />
+							</div>
+						</button>
+					</Menu>
+				{/if}				{#if $user?.role === 'admin'}
 					<Tooltip content={$i18n.t('Controls')}>
 						<button
 							class=" flex cursor-pointer px-2 py-2 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-850 transition"
