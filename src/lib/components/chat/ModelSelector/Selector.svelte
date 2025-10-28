@@ -409,7 +409,7 @@
 		alignOffset={-1}
 	>
 		<slot>
-			{#if searchEnabled}
+			{#if searchEnabled && $user?.role === 'admin'}
 				<div class="flex items-center gap-2.5 px-4.5 mt-3.5 mb-1.5">
 					<Search className="size-4" strokeWidth="2.5" />
 
@@ -444,7 +444,7 @@
 			{/if}
 
 			<div class="px-2">
-				{#if tags && items.filter((item) => !(item.model?.info?.meta?.hidden ?? false)).length > 0}
+				{#if $user?.role === 'admin' && tags && items.filter((item) => !(item.model?.info?.meta?.hidden ?? false)).length > 0}
 					<div
 						class=" flex w-full bg-white dark:bg-gray-850 overflow-x-auto scrollbar-none font-[450] mb-0.5"
 						on:wheel={(e) => {

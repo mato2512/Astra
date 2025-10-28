@@ -127,7 +127,7 @@
 	{/each}
 </div>
 
-{#if showSetDefault}
+{#if showSetDefault && $user?.role === 'admin'}
 	<div
 		class="relative text-left mt-[1px] ml-1 text-[0.7rem] text-gray-600 dark:text-gray-400 font-primary"
 	>
