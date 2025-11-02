@@ -94,7 +94,7 @@
 	});
 </script>
 
-<div class="{$mobile ? 'h-full flex flex-col justify-between' : 'm-auto'} w-full max-w-6xl px-2 @2xl:px-20 {$mobile ? 'py-4' : 'translate-y-6 py-24'} text-center">
+<div class="{$mobile ? 'h-full flex flex-col' : 'm-auto'} w-full max-w-6xl px-2 @2xl:px-20 {$mobile ? 'py-4' : 'translate-y-6 py-24'} text-center">
 	{#if $temporaryChatEnabled}
 		<Tooltip
 			content={$i18n.t("This chat won't appear in history and your messages will not be saved.")}
@@ -107,8 +107,13 @@
 		</Tooltip>
 	{/if}
 
+	<!-- Add spacer for mobile to push content down -->
+	{#if $mobile}
+		<div class="flex-1"></div>
+	{/if}
+
 	<div
-		class="w-full text-3xl text-gray-800 dark:text-gray-100 text-center flex items-center gap-4 font-primary"
+		class="w-full text-3xl text-gray-800 dark:text-gray-100 text-center flex items-center gap-4 font-primary {$mobile ? 'mb-4' : ''}"
 	>
 		<div class="w-full flex flex-col {$mobile ? 'justify-end' : 'justify-center'} items-center">
 			{#if $selectedFolder}
