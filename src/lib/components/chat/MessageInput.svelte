@@ -985,7 +985,7 @@
 			</div>
 		</div>
 
-		<div class="bg-transparent">
+		<div class="bg-transparent {$mobile ? 'pb-safe' : ''}">
 			<div
 				class="{($settings?.widescreenMode ?? null)
 					? 'max-w-full'
@@ -1037,7 +1037,7 @@
 						/>
 					{:else}
 						<form
-							class="w-full flex flex-col gap-1.5 mx-auto max-w-3xl px-4"
+							class="w-full flex flex-col gap-1.5 mx-auto max-w-3xl px-4 {$mobile ? 'pb-2' : ''}"
 							on:submit|preventDefault={() => {
 								// check if selectedModels support image input
 								dispatch('submit', prompt);
