@@ -2,7 +2,7 @@
 	import { WEBUI_BASE_URL } from '$lib/constants';
 	import { marked } from 'marked';
 
-	import { config, user, models as _models, temporaryChatEnabled, mobile } from '$lib/stores';
+	import { config, user, models as _models, temporaryChatEnabled } from '$lib/stores';
 	import { onMount, getContext } from 'svelte';
 
 	import { blur, fade } from 'svelte/transition';
@@ -56,13 +56,8 @@
 </script>
 
 {#key mounted}
-	<div class="{$mobile ? 'h-full flex flex-col' : 'm-auto'} w-full max-w-3xl px-4 md:px-6 lg:px-8">
-		<!-- Spacer to push content down on mobile -->
-		{#if $mobile}
-			<div class="flex-1"></div>
-		{/if}
-		
-		<div class="flex flex-col items-center justify-center {$mobile ? '' : 'min-h-[40vh] md:min-h-[50vh]'}">
+	<div class="{$mobile ? 'h-full flex flex-col justify-center items-center' : 'm-auto'} w-full max-w-3xl px-4 md:px-6 lg:px-8">
+		<div class="flex flex-col items-center justify-center {$mobile ? 'w-full' : 'min-h-[40vh] md:min-h-[50vh]'}">
 			<!-- Model Icons -->
 			<div class="flex justify-center mb-6" in:fade={{ duration: 200 }}>
 				<div class="flex {$mobile ? '' : '-space-x-3'}">
