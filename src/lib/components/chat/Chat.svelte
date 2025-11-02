@@ -2445,10 +2445,10 @@
 						}}
 					/>
 
-					<div class="flex flex-col h-full w-full @container pt-16">
+					<div class="flex flex-col h-full w-full @container">
 						{#if ($settings?.landingPageMode === 'chat' && !$selectedFolder) || createMessagesList(history, history.currentId).length > 0}
 							<div
-								class="pb-2.5 flex flex-col justify-between w-full flex-1 overflow-y-auto max-w-full z-10 scrollbar-hidden"
+								class="pb-2.5 flex flex-col justify-between w-full flex-1 min-h-0 overflow-y-auto max-w-full z-10 scrollbar-hidden"
 								id="messages-container"
 								bind:this={messagesContainerElement}
 								on:scroll={(e) => {
