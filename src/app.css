@@ -803,3 +803,31 @@ body {
 	position: relative;
 	z-index: 0;
 }
+
+/* Mobile keyboard optimization */
+@media (max-width: 768px) {
+	.mobile-chat-container {
+		height: 100dvh;
+		height: 100vh;
+		display: flex;
+		flex-direction: column;
+	}
+
+	/* Ensure input stays above keyboard on mobile */
+	@supports (height: 100dvh) {
+		html,
+		body {
+			height: 100dvh;
+			overflow: hidden;
+		}
+
+		.mobile-chat-container {
+			height: 100dvh;
+		}
+	}
+}
+
+/* Safe area padding for mobile devices */
+.pb-safe {
+	padding-bottom: env(safe-area-inset-bottom);
+}
