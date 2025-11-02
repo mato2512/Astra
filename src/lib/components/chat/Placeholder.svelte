@@ -115,7 +115,7 @@
 	<div
 		class="w-full text-3xl text-gray-800 dark:text-gray-100 text-center flex items-center gap-4 font-primary {$mobile ? 'mb-4' : ''}"
 	>
-		<div class="w-full flex flex-col {$mobile ? 'justify-end' : 'justify-center'} items-center">
+		<div class="w-full flex flex-col justify-center items-center">
 			{#if $selectedFolder}
 				<FolderTitle
 					folder={$selectedFolder}
@@ -131,9 +131,9 @@
 					}}
 				/>
 			{:else}
-				<div class="flex flex-row justify-center gap-3 @sm:gap-3.5 w-fit px-5 max-w-xl">
+				<div class="flex {$mobile ? 'flex-col' : 'flex-row'} justify-center items-center gap-3 @sm:gap-3.5 w-fit px-5 max-w-xl">
 					<div class="flex shrink-0 justify-center">
-						<div class="flex -space-x-4 mb-0.5" in:fade={{ duration: 100 }}>
+						<div class="flex {$mobile ? '' : '-space-x-4'} mb-0.5" in:fade={{ duration: 100 }}>
 							{#each models as model, modelIdx}
 								<Tooltip
 									content={(models[modelIdx]?.info?.meta?.tags ?? [])
@@ -156,7 +156,7 @@
 												($i18n.language === 'dg-DG'
 													? `${WEBUI_BASE_URL}/doge.png`
 													: `${WEBUI_BASE_URL}/static/favicon.png`)}
-											class=" size-9 @sm:size-10 rounded-full border-[1px] border-gray-100 dark:border-none"
+											class=" {$mobile ? 'size-16' : 'size-9 @sm:size-10'} rounded-full border-[1px] border-gray-100 dark:border-none"
 											aria-hidden="true"
 											draggable="false"
 										/>
