@@ -2352,7 +2352,7 @@
 />
 
 <div
-	class="h-screen max-h-[100dvh] transition-width duration-200 ease-in-out {$showSidebar
+	class="h-screen max-h-[100dvh] overflow-hidden transition-width duration-200 ease-in-out {$showSidebar
 		? '  md:max-w-[calc(100%-260px)]'
 		: ' '} w-full max-w-full flex flex-col"
 	id="chat-container"
@@ -2445,10 +2445,10 @@
 						}}
 					/>
 
-					<div class="flex flex-col flex-auto z-10 w-full @container overflow-auto pt-16">
+					<div class="flex flex-col h-full w-full @container pt-16">
 						{#if ($settings?.landingPageMode === 'chat' && !$selectedFolder) || createMessagesList(history, history.currentId).length > 0}
 							<div
-								class=" pb-2.5 flex flex-col justify-between w-full flex-auto overflow-auto h-0 max-w-full z-10 scrollbar-hidden"
+								class="pb-2.5 flex flex-col justify-between w-full flex-1 overflow-y-auto max-w-full z-10 scrollbar-hidden"
 								id="messages-container"
 								bind:this={messagesContainerElement}
 								on:scroll={(e) => {
@@ -2483,7 +2483,7 @@
 								</div>
 							</div>
 
-							<div class=" pb-2">
+							<div class="flex-none pb-2">
 								<MessageInput
 									bind:this={messageInput}
 									{history}
@@ -2534,7 +2534,7 @@
 								</div>
 							</div>
 						{:else}
-							<div class="flex items-center h-full pt-16">
+							<div class="flex items-center flex-1">
 								<Placeholder
 									{history}
 									{selectedModels}
