@@ -176,6 +176,21 @@
 		await channels.set(await getChannels(localStorage.token));
 	};
 
+	const refreshChatList = async () => {
+		// Refresh without resetting pagination - used for updates like unarchive
+		console.log('refreshChatList');
+		
+		const [_tags, _pinnedChats, _chats] = await Promise.all([
+			getAllTags(localStorage.token),
+			getPinnedChatList(localStorage.token),
+			getChatList(localStorage.token, $currentChatPage)
+		]);
+		
+		tags.set(_tags);
+		pinnedChats.set(_pinnedChats);
+		chats.set(_chats);
+	};
+
 	const initChatList = async () => {
 		// Reset pagination variables
 		console.log('initChatList');
@@ -183,23 +198,16 @@
 		allChatsLoaded = false;
 
 		initFolders();
-		await Promise.all([
-			await (async () => {
-				console.log('Init tags');
-				const _tags = await getAllTags(localStorage.token);
-				tags.set(_tags);
-			})(),
-			await (async () => {
-				console.log('Init pinned chats');
-				const _pinnedChats = await getPinnedChatList(localStorage.token);
-				pinnedChats.set(_pinnedChats);
-			})(),
-			await (async () => {
-				console.log('Init chat list');
-				const _chats = await getChatList(localStorage.token, $currentChatPage);
-				await chats.set(_chats);
-			})()
+		
+		const [_tags, _pinnedChats, _chats] = await Promise.all([
+			getAllTags(localStorage.token),
+			getPinnedChatList(localStorage.token),
+			getChatList(localStorage.token, 1)
 		]);
+		
+		tags.set(_tags);
+		pinnedChats.set(_pinnedChats);
+		chats.set(_chats);
 
 		// Enable pagination
 		scrollPaginationEnabled.set(true);
@@ -471,7 +479,7 @@
 <ArchivedChatsModal
 	bind:show={$showArchivedChats}
 	onUpdate={async () => {
-		await initChatList();
+		await refreshChatList();
 	}}
 />
 
