@@ -125,19 +125,24 @@
 			// Update tags
 			tags.set(await getAllTags(localStorage.token));
 			
-			// Update chats store by removing the deleted chat
-			chats.update((currentChats) => currentChats.filter((chat) => chat.id !== id));
+			// Update chats store by removing the deleted chat immediately
+			chats.update((currentChats) => {
+				return currentChats ? currentChats.filter((chat) => chat.id !== id) : [];
+			});
 			
 			// Update pinned chats if needed
-			pinnedChats.update((currentPinned) => currentPinned.filter((chat) => chat.id !== id));
+			pinnedChats.update((currentPinned) => {
+				return currentPinned ? currentPinned.filter((chat) => chat.id !== id) : [];
+			});
 			
 			if ($chatId === id) {
 				await goto('/');
 				await chatId.set('');
 				await tick();
 			}
-
-			dispatch('change');
+			
+			// Don't call dispatch('change') to avoid clearing the list
+			// The optimistic update above is sufficient
 		}
 	};
 
