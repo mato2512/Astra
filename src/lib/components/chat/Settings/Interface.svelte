@@ -89,7 +89,7 @@
 	let voiceInterruption = false;
 	let hapticFeedback = false;
 
-	let webSearch = null;
+	let webSearch = 'always';
 
 	let iframeSandboxAllowSameOrigin = false;
 	let iframeSandboxAllowForms = false;
@@ -251,7 +251,7 @@
 		}
 
 		backgroundImageUrl = $settings?.backgroundImageUrl ?? null;
-		webSearch = $settings?.webSearch ?? null;
+		webSearch = $settings?.webSearch ?? 'always';
 	});
 </script>
 
