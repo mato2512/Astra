@@ -105,10 +105,18 @@
 	const unarchiveHandler = async (chatId) => {
 		const res = await archiveChatById(localStorage.token, chatId).catch((error) => {
 			toast.error(`${error}`);
+			return null;
 		});
 
-		onUpdate();
-		init();
+		if (res) {
+			// Remove from local chatList immediately
+			chatList = chatList ? chatList.filter((chat) => chat.id !== chatId) : [];
+			
+			// Notify parent to refresh main chat list
+			onUpdate();
+			
+			toast.success($i18n.t('Chat unarchived successfully'));
+		}
 	};
 
 	const unarchiveAllHandler = async () => {
