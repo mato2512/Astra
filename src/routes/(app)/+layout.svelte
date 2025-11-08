@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { toast } from 'svelte-sonner';
 	import { onMount, tick, getContext } from 'svelte';
+	import { get } from 'svelte/store';
 	import { openDB, deleteDB } from 'idb';
 	import fileSaver from 'file-saver';
 	const { saveAs } = fileSaver;
@@ -16,7 +17,7 @@
 	import { getPrompts } from '$lib/apis/prompts';
 	import { getTools } from '$lib/apis/tools';
 	import { getBanners } from '$lib/apis/configs';
-	import { getUserSettings } from '$lib/apis/users';
+	import { getUserSettings, updateUserSettings } from '$lib/apis/users';
 
 	import { WEBUI_VERSION } from '$lib/constants';
 	import { compareVersion } from '$lib/utils';
@@ -93,6 +94,13 @@
 
 		if (userSettings) {
 			await settings.set(userSettings.ui);
+
+			// Set default models for new users if not already set
+			if ((!userSettings.ui?.models || userSettings.ui.models.length === 0) && $config?.default_models) {
+				const defaultModels = $config.default_models.split(',');
+				await settings.set({ ...get(settings), models: defaultModels });
+				await updateUserSettings(localStorage.token, { ui: get(settings) });
+			}
 
 			if (cb) {
 				await cb();

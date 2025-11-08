@@ -9,7 +9,7 @@
 	export let done = false;
 </script>
 
-{#if !status?.hidden && !(status?.description === 'No search query generated' || status?.description === 'Generating search query' || status?.action === 'sources_retrieved' || status?.description === 'Searching')}
+{#if !status?.hidden && !(status?.description === 'No search query generated' || status?.description === 'Generating search query' || status?.action === 'sources_retrieved' || status?.action === 'web_search_queries_generated' || (status?.action === 'web_search' && (status?.urls || status?.items)) || status?.description?.includes('{{count}}') || status?.description === 'Searching')}
 	<div class="status-description flex items-center gap-2 py-0.5 w-full text-left">
 		{#if status?.action === 'web_search' && (status?.urls || status?.items)}
 			<WebSearchResults {status}>
