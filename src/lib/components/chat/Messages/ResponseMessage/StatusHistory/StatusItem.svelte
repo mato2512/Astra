@@ -9,7 +9,7 @@
 	export let done = false;
 </script>
 
-{#if !status?.hidden && !(status?.description === 'Searching the web' || status?.description === 'No search query generated' || status?.description === 'Generating search query')}
+{#if !status?.hidden && !(status?.description === 'No search query generated' || status?.description === 'Generating search query' || status?.action === 'sources_retrieved' || status?.action === 'web_search')}
 	<div class="status-description flex items-center gap-2 py-0.5 w-full text-left">
 		{#if status?.action === 'web_search' && (status?.urls || status?.items)}
 			<WebSearchResults {status}>
@@ -100,28 +100,7 @@
 					{/each}
 				</div>
 			</div>
-		{:else if status?.action === 'sources_retrieved' && status?.count !== undefined}
-			<div class="flex flex-col justify-center -space-y-0.5">
-				<div
-					class="{(done || status?.done) === false
-						? 'shimmer'
-						: ''} text-gray-500 dark:text-gray-500 text-base line-clamp-1 text-wrap"
-				>
-					{#if status.count === 0}
-						{$i18n.t('No sources found')}
-					{:else if status.count === 1}
-						{$i18n.t('Retrieved 1 source')}
-					{:else}
-						<!-- {$i18n.t('Source')} -->
-						<!-- {$i18n.t('No source available')} -->
-						<!-- {$i18n.t('No distance available')} -->
-						<!-- {$i18n.t('Retrieved {{count}} sources')} -->
-						{$i18n.t('Retrieved {{count}} sources', {
-							count: status.count
-						})}
-					{/if}
-				</div>
-			</div>
+
 		{:else}
 			<div class="flex flex-col justify-center -space-y-0.5">
 				<div
