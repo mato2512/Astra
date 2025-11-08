@@ -11,13 +11,7 @@
 
 {#if !status?.hidden && !(status?.description === 'No search query generated' || status?.description === 'Generating search query' || status?.action === 'sources_retrieved' || status?.action === 'web_search')}
 	<div class="status-description flex items-center gap-2 py-0.5 w-full text-left">
-		{#if status?.description === 'Searching the web'}
-			<div class="flex flex-col justify-center -space-y-0.5">
-				<div class="shimmer text-gray-500 dark:text-gray-500 text-base line-clamp-1 text-wrap">
-					{$i18n.t('Searching the web')}
-				</div>
-			</div>
-		{:else if status?.action === 'web_search' && (status?.urls || status?.items)}
+		{#if status?.action === 'web_search' && (status?.urls || status?.items)}
 			<WebSearchResults {status}>
 				<div class="flex flex-col justify-center -space-y-0.5">
 					<div

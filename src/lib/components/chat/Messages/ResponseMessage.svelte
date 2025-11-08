@@ -678,12 +678,14 @@
 			<div>
 				<div class="chat-{message.role} w-full min-w-full markdown-prose">
 					<div>
-				{#if (model?.info?.meta?.capabilities?.status_updates ?? true) && message?.content === ''}
-					<StatusHistory
-						statusHistory={message?.statusHistory?.filter(s => s.description === 'Searching the web')}
-						expand={true}
-					/>
-				{/if}						{#if message?.files && message.files?.filter((f) => f.type === 'image').length > 0}
+						{#if model?.info?.meta?.capabilities?.status_updates ?? true}
+							<StatusHistory
+								statusHistory={message?.statusHistory}
+								expand={message?.content === ''}
+							/>
+						{/if}
+
+						{#if message?.files && message.files?.filter((f) => f.type === 'image').length > 0}
 							<div class="my-1 w-full flex overflow-x-auto gap-2 flex-wrap">
 								{#each message.files as file}
 									<div>
