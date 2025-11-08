@@ -26,7 +26,7 @@
 	}
 </script>
 
-{#if history && history.length > 0}
+{#if history && history.length > 0 && history.filter(h => !h.hidden && h.description !== 'Searching the web' && h.description !== 'No search query generated' && h.description !== 'Generating search query').length > 0}
 	{#if status?.hidden !== true}
 		<div class="text-sm flex flex-col w-full">
 			{#if showHistory}
