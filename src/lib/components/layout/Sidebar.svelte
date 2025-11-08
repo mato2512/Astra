@@ -178,17 +178,27 @@
 
 	const refreshChatList = async () => {
 		// Refresh without resetting pagination - used for updates like unarchive
-		console.log('refreshChatList');
+		console.log('refreshChatList - fetching updated chat list');
 		
-		const [_tags, _pinnedChats, _chats] = await Promise.all([
-			getAllTags(localStorage.token),
-			getPinnedChatList(localStorage.token),
-			getChatList(localStorage.token, $currentChatPage)
-		]);
-		
-		tags.set(_tags);
-		pinnedChats.set(_pinnedChats);
-		chats.set(_chats);
+		try {
+			const [_tags, _pinnedChats, _chats] = await Promise.all([
+				getAllTags(localStorage.token),
+				getPinnedChatList(localStorage.token),
+				getChatList(localStorage.token, 1) // Always fetch from page 1 to get fresh list
+			]);
+			
+			console.log('refreshChatList - received chats:', _chats?.length || 0);
+			
+			tags.set(_tags);
+			pinnedChats.set(_pinnedChats);
+			await chats.set(_chats);
+			
+			// Reset to page 1 since we fetched fresh list
+			currentChatPage.set(1);
+		} catch (error) {
+			console.error('Error refreshing chat list:', error);
+			toast.error('Failed to refresh chat list');
+		}
 	};
 
 	const initChatList = async () => {
