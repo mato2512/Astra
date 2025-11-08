@@ -1742,7 +1742,8 @@
 				(model) => $models.find((m) => m.id === model)?.info?.meta?.capabilities?.web_search ?? true
 			).length === currentModels.length
 		) {
-			if ($config?.features?.enable_web_search && ($settings?.webSearch ?? false) === 'always') {
+			// Enable web search for all users by default - model will use it intelligently
+			if ($config?.features?.enable_web_search) {
 				features = { ...features, web_search: true };
 			}
 		}
