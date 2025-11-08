@@ -651,6 +651,13 @@ async def signup(request: Request, response: Response, form_data: SignupForm):
                 user.id, request.app.state.config.USER_PERMISSIONS
             )
 
+            # Set default models for new users
+            if request.app.state.config.DEFAULT_MODELS:
+                default_models = [m.strip() for m in request.app.state.config.DEFAULT_MODELS.split(',') if m.strip()]
+                if default_models:
+                    Users.update_user_settings_by_id(user.id, {"ui": {"models": default_models}})
+                    log.info(f"Set default models for new user {user.email}: {default_models}")
+
             if not has_users:
                 # Disable signup after the first user is created
                 request.app.state.config.ENABLE_SIGNUP = False
