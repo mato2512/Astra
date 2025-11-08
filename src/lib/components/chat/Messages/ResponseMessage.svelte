@@ -150,6 +150,32 @@
 	let model = null;
 	$: model = $models.find((m) => m.id === message.model);
 
+	// Extract web search items from statusHistory and convert to sources
+	let webSearchSources = [];
+	$: {
+		const webSearchStatus = message?.statusHistory?.find(
+			(status) => status?.action === 'web_search' && status?.items?.length > 0
+		);
+		
+		if (webSearchStatus?.items) {
+			webSearchSources = webSearchStatus.items.map((item, idx) => ({
+				source: {
+					name: item.title || item.link,
+					url: item.link
+				},
+				document: [item.snippet || ''],
+				metadata: [{
+					source: item.link,
+					title: item.title,
+					snippet: item.snippet
+				}]
+			}));
+		}
+	}
+
+	// Combine existing sources with web search sources
+	$: combinedSources = [...(message?.sources || message?.citations || []), ...webSearchSources];
+
 	let edit = false;
 	let editedContent = '';
 	let editTextAreaElement: HTMLTextAreaElement;
@@ -835,11 +861,11 @@
 							<Error content={message?.error?.content ?? message.content} />
 						{/if}
 
-						{#if message?.sources || message?.citations}
+						{#if combinedSources.length > 0}
 							<Citations
 								bind:this={citationsElement}
 								id={message?.id}
-								sources={message?.sources ?? message?.citations}
+								sources={combinedSources}
 								{readOnly}
 							/>
 						{/if}								{#if message.code_executions}
