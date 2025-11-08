@@ -93,7 +93,7 @@
 		});
 
 		if (userSettings) {
-			await settings.set(userSettings.ui);
+			await settings.set(userSettings.ui || {});
 
 			if (cb) {
 				await cb();
@@ -109,13 +109,29 @@
 	};
 
 	const setDefaultModelsForNewUsers = async () => {
+		// Wait a bit to ensure config is loaded
+		await tick();
+		await tick();
+		
 		const currentSettings = get(settings);
+		const currentConfig = get(config);
+		
+		console.log('Checking default models...', {
+			currentModels: currentSettings?.models,
+			defaultModels: currentConfig?.default_models,
+			hasModels: currentSettings?.models?.length > 0
+		});
+		
 		// Set default models for new users if not already set
-		if ((!currentSettings?.models || currentSettings.models.length === 0) && $config?.default_models) {
-			const defaultModels = $config.default_models.split(',').map(m => m.trim());
-			await settings.set({ ...currentSettings, models: defaultModels });
-			await updateUserSettings(localStorage.token, { ui: get(settings) });
-			console.log('Set default models for new user:', defaultModels);
+		if ((!currentSettings?.models || currentSettings.models.length === 0) && currentConfig?.default_models) {
+			const defaultModels = currentConfig.default_models.split(',').map(m => m.trim()).filter(m => m);
+			console.log('Setting default models for new user:', defaultModels);
+			
+			const updatedSettings = { ...currentSettings, models: defaultModels };
+			await settings.set(updatedSettings);
+			await updateUserSettings(localStorage.token, { ui: updatedSettings });
+			
+			toast.success('Default model selected');
 		}
 	};
 
