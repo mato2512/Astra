@@ -832,19 +832,17 @@
 								{/if}
 
 								{#if message?.error}
-									<Error content={message?.error?.content ?? message.content} />
-								{/if}
+							<Error content={message?.error?.content ?? message.content} />
+						{/if}
 
-								{#if (message?.sources || message?.citations) && (model?.info?.meta?.capabilities?.citations ?? true)}
-									<Citations
-										bind:this={citationsElement}
-										id={message?.id}
-										sources={message?.sources ?? message?.citations}
-										{readOnly}
-									/>
-								{/if}
-
-								{#if message.code_executions}
+						{#if message?.sources || message?.citations}
+							<Citations
+								bind:this={citationsElement}
+								id={message?.id}
+								sources={message?.sources ?? message?.citations}
+								{readOnly}
+							/>
+						{/if}								{#if message.code_executions}
 									<CodeExecutions codeExecutions={message.code_executions} />
 								{/if}
 							</div>

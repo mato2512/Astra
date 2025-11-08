@@ -457,12 +457,11 @@
 		($_user.role === 'admin' || $_user?.permissions?.features?.web_search);
 
 	let showImageGenerationButton = false;
-	// Hidden by default - image generation button disabled
-	// $: showImageGenerationButton =
-	// 	(atSelectedModel?.id ? [atSelectedModel.id] : selectedModels).length ===
-	// 		imageGenerationCapableModels.length &&
-	// 	$config?.features?.enable_image_generation &&
-	// 	($_user.role === 'admin' || $_user?.permissions?.features?.image_generation);
+	$: showImageGenerationButton =
+		(atSelectedModel?.id ? [atSelectedModel.id] : selectedModels).length ===
+			imageGenerationCapableModels.length &&
+		$config?.features?.enable_image_generation &&
+		($_user.role === 'admin' || $_user?.permissions?.features?.image_generation);
 
 	let showCodeInterpreterButton = false;
 	$: showCodeInterpreterButton =
