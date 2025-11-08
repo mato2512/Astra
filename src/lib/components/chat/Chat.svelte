@@ -2483,7 +2483,7 @@
 								</div>
 							</div>
 
-							<div class="flex-none pb-2">
+							<div class="flex-none pb-2 sticky bottom-0 bg-white dark:bg-gray-900">
 								<MessageInput
 									bind:this={messageInput}
 									{history}
