@@ -559,51 +559,6 @@ async def chat_web_search_handler(
     request: Request, form_data: dict, extra_params: dict, user
 ):
     event_emitter = extra_params["__event_emitter__"]
-    
-    messages = form_data["messages"]
-    user_message = get_last_user_message(messages)
-    
-    # First, check if web search is actually needed for this query
-    try:
-        from open_webui.routers.tasks import generate_chat_completion
-        
-        check_prompt = f"""Analyze this user query and determine if it requires real-time/current information from the web.
-
-User query: "{user_message}"
-
-Queries that NEED web search:
-- Current events, news, latest updates
-- Real-time data (stock prices, weather, sports scores)
-- Recent information (anything from the last few months/years)
-- Specific current facts that change over time
-
-Queries that DON'T need web search:
-- General greetings (hi, hello, hey)
-- General knowledge questions about established facts
-- Math calculations, coding help, explanations
-- Creative tasks (write a story, poem, etc.)
-- Personal opinions or advice
-
-Respond with ONLY "YES" if web search is needed, or "NO" if it's not needed."""
-
-        check_payload = {{
-            "model": form_data["model"],
-            "messages": [{{"role": "user", "content": check_prompt}}],
-            "stream": False,
-        }}
-        
-        check_response = await generate_chat_completion(request, form_data=check_payload, user=user)
-        needs_search = check_response["choices"][0]["message"]["content"].strip().upper()
-        
-        # If the model says NO, skip web search
-        if "NO" in needs_search:
-            log.info(f"Web search not needed for query: {user_message[:50]}...")
-            return form_data
-            
-    except Exception as e:
-        log.warning(f"Error checking if web search needed: {e}. Proceeding with search.")
-    
-    # Proceed with web search
     await event_emitter(
         {
             "type": "status",
@@ -614,6 +569,9 @@ Respond with ONLY "YES" if web search is needed, or "NO" if it's not needed."""
             },
         }
     )
+
+    messages = form_data["messages"]
+    user_message = get_last_user_message(messages)
 
     queries = []
     try:
