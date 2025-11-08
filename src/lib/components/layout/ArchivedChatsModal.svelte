@@ -103,19 +103,21 @@
 	};
 
 	const unarchiveHandler = async (chatId) => {
-		const res = await archiveChatById(localStorage.token, chatId).catch((error) => {
-			toast.error(`${error}`);
-			return null;
-		});
-
-		if (res) {
-			// Remove from local chatList immediately
-			chatList = chatList ? chatList.filter((chat) => chat.id !== chatId) : [];
+		try {
+			const res = await archiveChatById(localStorage.token, chatId);
 			
-			// Notify parent to refresh main chat list
-			onUpdate();
-			
-			toast.success($i18n.t('Chat unarchived successfully'));
+			if (res) {
+				// Remove from local archived chatList immediately
+				chatList = chatList ? chatList.filter((chat) => chat.id !== chatId) : [];
+				
+				toast.success($i18n.t('Chat unarchived successfully'));
+				
+				// Notify parent to refresh main chat list
+				await onUpdate();
+			}
+		} catch (error) {
+			console.error('Unarchive error:', error);
+			toast.error(`Failed to unarchive: ${error}`);
 		}
 	};
 
