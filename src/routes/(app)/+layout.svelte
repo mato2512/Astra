@@ -95,13 +95,6 @@
 		if (userSettings) {
 			await settings.set(userSettings.ui);
 
-			// Set default models for new users if not already set
-			if ((!userSettings.ui?.models || userSettings.ui.models.length === 0) && $config?.default_models) {
-				const defaultModels = $config.default_models.split(',');
-				await settings.set({ ...get(settings), models: defaultModels });
-				await updateUserSettings(localStorage.token, { ui: get(settings) });
-			}
-
 			if (cb) {
 				await cb();
 			}
@@ -112,6 +105,17 @@
 		} catch (e: unknown) {
 			console.error('Failed to parse settings from localStorage', e);
 			return {};
+		}
+	};
+
+	const setDefaultModelsForNewUsers = async () => {
+		const currentSettings = get(settings);
+		// Set default models for new users if not already set
+		if ((!currentSettings?.models || currentSettings.models.length === 0) && $config?.default_models) {
+			const defaultModels = $config.default_models.split(',').map(m => m.trim());
+			await settings.set({ ...currentSettings, models: defaultModels });
+			await updateUserSettings(localStorage.token, { ui: get(settings) });
+			console.log('Set default models for new user:', defaultModels);
 		}
 	};
 
@@ -166,6 +170,8 @@
 			setTools(),
 			setUserSettings(async () => {
 				await Promise.all([setModels(), setToolServers()]);
+				// Set default models after everything is loaded
+				await setDefaultModelsForNewUsers();
 			})
 		]);
 
