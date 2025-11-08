@@ -400,13 +400,13 @@
 	</DropdownMenu.Trigger>
 
 	<DropdownMenu.Content
-		class=" z-40 {$mobile
+		class=" z-50 {$mobile
 			? `w-full`
 			: `${className}`} max-w-[calc(100vw-1rem)] justify-start rounded-2xl  bg-white dark:bg-gray-850 dark:text-white shadow-lg  outline-hidden"
 		transition={flyAndScale}
 		side={$mobile ? 'bottom' : 'bottom-start'}
-		sideOffset={2}
-		alignOffset={-1}
+		sideOffset={4}
+		alignOffset={0}
 	>
 		<slot>
 			{#if searchEnabled && $user?.role === 'admin'}
