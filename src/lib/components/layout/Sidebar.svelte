@@ -182,9 +182,6 @@
 		currentChatPage.set(1);
 		allChatsLoaded = false;
 
-		// Clear existing chats first to force refresh
-		await chats.set([]);
-
 		initFolders();
 		await Promise.all([
 			await (async () => {
