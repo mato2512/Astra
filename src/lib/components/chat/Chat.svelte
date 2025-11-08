@@ -2448,7 +2448,7 @@
 					<div class="flex flex-col h-full w-full @container">
 						{#if ($settings?.landingPageMode === 'chat' && !$selectedFolder) || createMessagesList(history, history.currentId).length > 0}
 							<div
-								class="pb-2.5 flex flex-col justify-between w-full flex-1 min-h-0 overflow-y-auto max-w-full z-10 scrollbar-hidden"
+								class="pb-2.5 flex flex-col justify-between w-full flex-1 min-h-0 overflow-y-auto max-w-full scrollbar-hidden"
 								id="messages-container"
 								bind:this={messagesContainerElement}
 								on:scroll={(e) => {
@@ -2483,7 +2483,7 @@
 								</div>
 							</div>
 
-							<div class="flex-none pb-2 sticky bottom-0 bg-white dark:bg-gray-900">
+							<div class="flex-none pb-2 z-10 bg-white dark:bg-gray-900">
 								<MessageInput
 									bind:this={messageInput}
 									{history}
