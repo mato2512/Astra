@@ -147,8 +147,31 @@
 	};
 
 	const archiveChatHandler = async (id) => {
-		await archiveChatById(localStorage.token, id);
-		dispatch('change');
+		const res = await archiveChatById(localStorage.token, id).catch((error) => {
+			toast.error(`${error}`);
+			return null;
+		});
+
+		if (res) {
+			// Update chats store by removing the archived chat immediately
+			chats.update((currentChats) => {
+				return currentChats ? currentChats.filter((chat) => chat.id !== id) : [];
+			});
+			
+			// Update pinned chats if needed
+			pinnedChats.update((currentPinned) => {
+				return currentPinned ? currentPinned.filter((chat) => chat.id !== id) : [];
+			});
+			
+			if ($chatId === id) {
+				await goto('/');
+				await chatId.set('');
+				await tick();
+			}
+			
+			toast.success($i18n.t('Chat archived successfully'));
+			// Don't call dispatch('change') to avoid clearing the list
+		}
 	};
 
 	const moveChatHandler = async (chatId, folderId) => {
