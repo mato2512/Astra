@@ -194,7 +194,7 @@
 		showChangelog = $settings?.showChangelog ?? true;
 
 		showEmojiInCall = $settings?.showEmojiInCall ?? false;
-		voiceInterruption = $settings?.voiceInterruption ?? false;
+		voiceInterruption = $settings?.voiceInterruption ?? true;
 
 		displayMultiModelResponsesInTabs = $settings?.displayMultiModelResponsesInTabs ?? false;
 		chatFadeStreamingText = $settings?.chatFadeStreamingText ?? true;

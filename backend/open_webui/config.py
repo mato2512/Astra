@@ -2344,7 +2344,7 @@ DOCLING_DO_OCR = PersistentConfig(
 DOCLING_FORCE_OCR = PersistentConfig(
     "DOCLING_FORCE_OCR",
     "rag.docling_force_ocr",
-    os.getenv("DOCLING_FORCE_OCR", "False").lower() == "true",
+    os.getenv("DOCLING_FORCE_OCR", "True").lower() == "true",
 )
 
 DOCLING_OCR_ENGINE = PersistentConfig(
@@ -2443,12 +2443,12 @@ BYPASS_EMBEDDING_AND_RETRIEVAL = PersistentConfig(
 
 
 RAG_TOP_K = PersistentConfig(
-    "RAG_TOP_K", "rag.top_k", int(os.environ.get("RAG_TOP_K", "3"))
+    "RAG_TOP_K", "rag.top_k", int(os.environ.get("RAG_TOP_K", "5"))
 )
 RAG_TOP_K_RERANKER = PersistentConfig(
     "RAG_TOP_K_RERANKER",
     "rag.top_k_reranker",
-    int(os.environ.get("RAG_TOP_K_RERANKER", "3")),
+    int(os.environ.get("RAG_TOP_K_RERANKER", "5")),
 )
 RAG_RELEVANCE_THRESHOLD = PersistentConfig(
     "RAG_RELEVANCE_THRESHOLD",
@@ -2464,7 +2464,7 @@ RAG_HYBRID_BM25_WEIGHT = PersistentConfig(
 ENABLE_RAG_HYBRID_SEARCH = PersistentConfig(
     "ENABLE_RAG_HYBRID_SEARCH",
     "rag.enable_hybrid_search",
-    os.environ.get("ENABLE_RAG_HYBRID_SEARCH", "").lower() == "true",
+    os.environ.get("ENABLE_RAG_HYBRID_SEARCH", "True").lower() == "true",
 )
 
 RAG_FULL_CONTEXT = PersistentConfig(
@@ -2533,7 +2533,7 @@ RAG_EMBEDDING_ENGINE = PersistentConfig(
 PDF_EXTRACT_IMAGES = PersistentConfig(
     "PDF_EXTRACT_IMAGES",
     "rag.pdf_extract_images",
-    os.environ.get("PDF_EXTRACT_IMAGES", "False").lower() == "true",
+    os.environ.get("PDF_EXTRACT_IMAGES", "True").lower() == "true",
 )
 
 RAG_EMBEDDING_MODEL = PersistentConfig(
@@ -2622,12 +2622,12 @@ TIKTOKEN_ENCODING_NAME = PersistentConfig(
 
 
 CHUNK_SIZE = PersistentConfig(
-    "CHUNK_SIZE", "rag.chunk_size", int(os.environ.get("CHUNK_SIZE", "1000"))
+    "CHUNK_SIZE", "rag.chunk_size", int(os.environ.get("CHUNK_SIZE", "800"))
 )
 CHUNK_OVERLAP = PersistentConfig(
     "CHUNK_OVERLAP",
     "rag.chunk_overlap",
-    int(os.environ.get("CHUNK_OVERLAP", "100")),
+    int(os.environ.get("CHUNK_OVERLAP", "200")),
 )
 
 DEFAULT_RAG_TEMPLATE = """### Task:
@@ -2636,7 +2636,7 @@ Respond to the user query using the provided context, incorporating inline citat
 ### Guidelines:
 - If you don't know the answer, clearly state that.
 - If uncertain, ask the user for clarification.
-- Respond in the same language as the user's query.
+- **CRITICAL: Always respond in the EXACT same language as the user's query** (English, Hindi, Marathi, or any other language detected).
 - If the context is unreadable or of poor quality, inform the user and provide the best possible answer.
 - If the answer isn't present in the context but you possess the knowledge, explain this to the user and provide the answer using your own understanding.
 - **Only include inline citations using [id] (e.g., [1], [2]) when the <source> tag includes an id attribute.**
@@ -3284,7 +3284,7 @@ IMAGE_GENERATION_MODEL = PersistentConfig(
 WHISPER_MODEL = PersistentConfig(
     "WHISPER_MODEL",
     "audio.stt.whisper_model",
-    os.getenv("WHISPER_MODEL", "base"),
+    os.getenv("WHISPER_MODEL", "small"),
 )
 
 WHISPER_MODEL_DIR = os.getenv("WHISPER_MODEL_DIR", f"{CACHE_DIR}/whisper/models")
@@ -3296,9 +3296,13 @@ WHISPER_MODEL_AUTO_UPDATE = (
 WHISPER_VAD_FILTER = PersistentConfig(
     "WHISPER_VAD_FILTER",
     "audio.stt.whisper_vad_filter",
-    os.getenv("WHISPER_VAD_FILTER", "False").lower() == "true",
+    os.getenv("WHISPER_VAD_FILTER", "True").lower() == "true",
 )
 
+# AUTOMATIC LANGUAGE DETECTION ENABLED (None = detects all 99 languages)
+# Supports: English, Hindi, Marathi, and 96+ other languages
+# User speaks Marathi → System auto-detects and responds in Marathi
+# To restrict languages: set WHISPER_LANGUAGE="en,hi,mr" in .env
 WHISPER_LANGUAGE = os.getenv("WHISPER_LANGUAGE", "").lower() or None
 
 # Add Deepgram configuration
@@ -3321,10 +3325,12 @@ AUDIO_STT_OPENAI_API_KEY = PersistentConfig(
     os.getenv("AUDIO_STT_OPENAI_API_KEY", OPENAI_API_KEY),
 )
 
+# Default to 'web' for browser-based STT with multi-language support
+# Supports: English, Hindi, Marathi, and many more languages
 AUDIO_STT_ENGINE = PersistentConfig(
     "AUDIO_STT_ENGINE",
     "audio.stt.engine",
-    os.getenv("AUDIO_STT_ENGINE", ""),
+    os.getenv("AUDIO_STT_ENGINE", "web"),
 )
 
 AUDIO_STT_MODEL = PersistentConfig(
@@ -3418,16 +3424,18 @@ AUDIO_TTS_MODEL = PersistentConfig(
     os.getenv("AUDIO_TTS_MODEL", "tts-1"),  # OpenAI default model
 )
 
+# Default voice supports multi-language (English, Hindi, Marathi)
+# Browser TTS will use system voices including Microsoft Ravi for Indian languages
 AUDIO_TTS_VOICE = PersistentConfig(
     "AUDIO_TTS_VOICE",
     "audio.tts.voice",
-    os.getenv("AUDIO_TTS_VOICE", "alloy"),  # OpenAI default voice
+    os.getenv("AUDIO_TTS_VOICE", "alloy"),  # Default, can use Microsoft Ravi for Indian languages
 )
 
 AUDIO_TTS_SPLIT_ON = PersistentConfig(
     "AUDIO_TTS_SPLIT_ON",
     "audio.tts.split_on",
-    os.getenv("AUDIO_TTS_SPLIT_ON", "punctuation"),
+    os.getenv("AUDIO_TTS_SPLIT_ON", "none"),
 )
 
 AUDIO_TTS_AZURE_SPEECH_REGION = PersistentConfig(

@@ -280,6 +280,32 @@
 		return Math.sqrt(sumSquares / data.length);
 	};
 
+	// Detect human voice frequencies (improves interruption accuracy)
+	const isHumanVoice = (frequencyData: Uint8Array, sampleRate: number) => {
+		const nyquist = sampleRate / 2;
+		const binSize = nyquist / frequencyData.length;
+		
+		// Human voice frequency ranges:
+		// Fundamental: 85-255 Hz (male), 165-255 Hz (female)
+		// Formants: 200-3000 Hz (most important for speech)
+		const voiceRangeStart = Math.floor(200 / binSize);
+		const voiceRangeEnd = Math.floor(3000 / binSize);
+		
+		// Calculate energy in voice frequency range
+		let voiceEnergy = 0;
+		let totalEnergy = 0;
+		
+		for (let i = 0; i < frequencyData.length; i++) {
+			totalEnergy += frequencyData[i];
+			if (i >= voiceRangeStart && i <= voiceRangeEnd) {
+				voiceEnergy += frequencyData[i];
+			}
+		}
+		
+		// Check if voice frequencies dominate (>60% of total energy)
+		return totalEnergy > 0 && (voiceEnergy / totalEnergy) > 0.6;
+	};
+
 	const analyseAudio = (stream) => {
 		const audioContext = new AudioContext();
 		const audioStreamSource = audioContext.createMediaStreamSource(stream);
@@ -319,8 +345,8 @@
 				// Calculate RMS level from time domain data
 				rmsLevel = calculateRMS(timeDomainData);
 
-				// Check if initial speech/noise has started
-				const hasSound = domainData.some((value) => value > 0);
+				// Check if human voice is detected (not just any sound)
+				const hasSound = domainData.some((value) => value > 0) && isHumanVoice(domainData, audioContext.sampleRate);
 				if (hasSound) {
 					// BIG RED TEXT
 					console.log('%c%s', 'color: red; font-size: 20px;', '🔊 Sound detected');
@@ -752,22 +778,24 @@
 						/><circle class="spinner_qM83 spinner_ZTLf" cx="20" cy="12" r="3" /></svg
 					>
 				{:else}
-					<div
-						class=" {rmsLevel * 100 > 4
-							? ' size-[4.5rem]'
-							: rmsLevel * 100 > 2
-								? ' size-16'
-								: rmsLevel * 100 > 1
-									? 'size-14'
-									: 'size-12'}  transition-all rounded-full {(model?.info?.meta
-							?.profile_image_url ?? '/static/favicon.png') !== '/static/favicon.png'
-							? ' bg-cover bg-center bg-no-repeat'
-							: 'bg-black dark:bg-white'}  bg-black dark:bg-white"
-						style={(model?.info?.meta?.profile_image_url ?? '/static/favicon.png') !==
-						'/static/favicon.png'
-							? `background-image: url('${model?.info?.meta?.profile_image_url}');`
-							: ''}
-					/>
+					<div class="breathing-orb-small">
+						<div
+							class="breathing-orb {rmsLevel * 100 > 4
+								? ' size-[4.5rem]'
+								: rmsLevel * 100 > 2
+									? ' size-16'
+									: rmsLevel * 100 > 1
+										? 'size-14'
+										: 'size-12'}  transition-all rounded-full {(model?.info?.meta
+								?.profile_image_url ?? '/static/favicon.png') !== '/static/favicon.png'
+								? ' bg-cover bg-center bg-no-repeat'
+								: 'bg-gradient-to-br from-blue-400 via-blue-500 to-blue-600 dark:from-blue-500 dark:via-blue-600 dark:to-blue-700'}"
+							style={(model?.info?.meta?.profile_image_url ?? '/static/favicon.png') !==
+							'/static/favicon.png'
+								? `background-image: url('${model?.info?.meta?.profile_image_url}');`
+								: ''}
+						/>
+					</div>
 				{/if}
 				<!-- navbar -->
 			</button>
@@ -834,22 +862,30 @@
 							/><circle class="spinner_qM83 spinner_ZTLf" cx="20" cy="12" r="3" /></svg
 						>
 					{:else}
-						<div
-							class=" {rmsLevel * 100 > 4
-								? ' size-52'
-								: rmsLevel * 100 > 2
-									? 'size-48'
-									: rmsLevel * 100 > 1
-										? 'size-44'
-										: 'size-40'}  transition-all rounded-full {(model?.info?.meta
-								?.profile_image_url ?? '/static/favicon.png') !== '/static/favicon.png'
-								? ' bg-cover bg-center bg-no-repeat'
-								: 'bg-black dark:bg-white'} "
-							style={(model?.info?.meta?.profile_image_url ?? '/static/favicon.png') !==
-							'/static/favicon.png'
-								? `background-image: url('${model?.info?.meta?.profile_image_url}');`
-								: ''}
-						/>
+						<div class="breathing-orb-container">
+							<!-- Outer pulsing rings -->
+							<div class="breathing-ring breathing-ring-outer"></div>
+							<div class="breathing-ring breathing-ring-middle"></div>
+							<div class="breathing-ring breathing-ring-inner"></div>
+							
+							<!-- Center orb -->
+							<div
+								class="breathing-orb {rmsLevel * 100 > 4
+									? ' size-52'
+									: rmsLevel * 100 > 2
+										? 'size-48'
+										: rmsLevel * 100 > 1
+											? 'size-44'
+											: 'size-40'}  transition-all rounded-full {(model?.info?.meta
+									?.profile_image_url ?? '/static/favicon.png') !== '/static/favicon.png'
+									? ' bg-cover bg-center bg-no-repeat'
+									: 'bg-gradient-to-br from-blue-400 via-blue-500 to-blue-600 dark:from-blue-500 dark:via-blue-600 dark:to-blue-700'} "
+								style={(model?.info?.meta?.profile_image_url ?? '/static/favicon.png') !==
+								'/static/favicon.png'
+									? `background-image: url('${model?.info?.meta?.profile_image_url}');`
+									: ''}
+							/>
+						</div>
 					{/if}
 				</button>
 			{:else}
@@ -1000,3 +1036,76 @@
 		</div>
 	</div>
 {/if}
+
+<style>
+	/* ChatGPT-like breathing orb animation */
+	.breathing-orb-container {
+		position: relative;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.breathing-orb-small {
+		position: relative;
+		display: inline-block;
+	}
+
+	.breathing-orb {
+		position: relative;
+		z-index: 10;
+		box-shadow: 0 8px 32px rgba(59, 130, 246, 0.5);
+		animation: breathe 3s ease-in-out infinite;
+	}
+
+	.breathing-ring {
+		position: absolute;
+		border-radius: 50%;
+		border: 2px solid rgba(59, 130, 246, 0.4);
+		animation: pulse-ring 3s ease-in-out infinite;
+	}
+
+	.breathing-ring-outer {
+		width: 280px;
+		height: 280px;
+		animation-delay: 0s;
+	}
+
+	.breathing-ring-middle {
+		width: 240px;
+		height: 240px;
+		animation-delay: 0.3s;
+	}
+
+	.breathing-ring-inner {
+		width: 200px;
+		height: 200px;
+		animation-delay: 0.6s;
+	}
+
+	@keyframes breathe {
+		0%, 100% {
+			transform: scale(1);
+			box-shadow: 0 8px 32px rgba(59, 130, 246, 0.5);
+		}
+		50% {
+			transform: scale(1.08);
+			box-shadow: 0 12px 48px rgba(59, 130, 246, 0.7);
+		}
+	}
+
+	@keyframes pulse-ring {
+		0% {
+			transform: scale(0.95);
+			opacity: 1;
+		}
+		50% {
+			transform: scale(1.05);
+			opacity: 0.5;
+		}
+		100% {
+			transform: scale(0.95);
+			opacity: 1;
+		}
+	}
+</style>
