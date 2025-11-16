@@ -251,7 +251,7 @@
 		}
 
 		backgroundImageUrl = $settings?.backgroundImageUrl ?? null;
-		webSearch = $settings?.webSearch ?? 'always';
+		webSearch = $settings?.webSearch ?? null;
 	});
 </script>
 

@@ -559,16 +559,6 @@ async def chat_web_search_handler(
     request: Request, form_data: dict, extra_params: dict, user
 ):
     event_emitter = extra_params["__event_emitter__"]
-    await event_emitter(
-        {
-            "type": "status",
-            "data": {
-                "action": "web_search",
-                "description": "Searching the web",
-                "done": False,
-            },
-        }
-    )
 
     messages = form_data["messages"]
     user_message = get_last_user_message(messages)
@@ -606,25 +596,27 @@ async def chat_web_search_handler(
 
     except Exception as e:
         log.exception(e)
-        queries = [user_message]
+        queries = []
 
     # Check if generated queries are empty
     if len(queries) == 1 and queries[0].strip() == "":
-        queries = [user_message]
+        queries = []
 
-    # Check if queries are not found
+    # Check if queries are not found - skip web search entirely
     if len(queries) == 0:
-        await event_emitter(
-            {
-                "type": "status",
-                "data": {
-                    "action": "web_search",
-                    "description": "No search query generated",
-                    "done": True,
-                },
-            }
-        )
         return form_data
+
+    # Only show "Searching the web" when we actually have queries to search
+    await event_emitter(
+        {
+            "type": "status",
+            "data": {
+                "action": "web_search",
+                "description": "Searching the web",
+                "done": False,
+            },
+        }
+    )
 
     await event_emitter(
         {
