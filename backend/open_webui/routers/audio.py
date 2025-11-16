@@ -108,6 +108,42 @@ def clean_text_for_tts(text: str) -> str:
     return text
 
 
+def detect_language_simple(text: str) -> str:
+    """
+    Simple language detection based on Unicode script ranges.
+    Returns language code: 'hi' for Hindi, 'mr' for Marathi, 'en' for English.
+    Marathi and Hindi use Devanagari script - differentiation is complex.
+    """
+    # Check for Devanagari script (Hindi/Marathi)
+    devanagari_pattern = re.compile(r'[\u0900-\u097F]+')
+    if devanagari_pattern.search(text):
+        # For now, return 'hi' for both Hindi and Marathi (Devanagari script)
+        # Advanced detection requires NLP library like langdetect or fasttext
+        return 'hi'
+    
+    # Default to English
+    return 'en'
+
+
+def get_voice_for_language(config, language: str, default_voice: str) -> str:
+    """
+    Get appropriate TTS voice based on detected language.
+    Uses AUDIO_TTS_VOICE_MAPPING config if available.
+    """
+    voice_mapping = getattr(config, 'TTS_VOICE_MAPPING', {})
+    if voice_mapping and language in voice_mapping:
+        return voice_mapping[language]
+    
+    # Default mapping for Azure voices
+    azure_defaults = {
+        'mr': 'mr-IN-AarohiNeural',
+        'hi': 'hi-IN-SwaraNeural',
+        'en': default_voice or 'alloy'
+    }
+    
+    return azure_defaults.get(language, default_voice)
+
+
 def is_audio_conversion_required(file_path):
     """
     Check if the given audio file needs conversion to mp3.
@@ -593,8 +629,10 @@ def transcription_handler(request, file_path, metadata):
 
     metadata = metadata or {}
 
+    # Auto-detect language when WHISPER_LANGUAGE is None (default)
+    # If WHISPER_LANGUAGE is set (e.g., 'en', 'hi', 'mr'), use that language
     languages = [
-        metadata.get("language", None) if not WHISPER_LANGUAGE else WHISPER_LANGUAGE,
+        WHISPER_LANGUAGE if WHISPER_LANGUAGE else metadata.get("language", None),
         None,  # Always fallback to None in case transcription fails
     ]
 

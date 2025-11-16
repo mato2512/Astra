@@ -3425,11 +3425,23 @@ AUDIO_TTS_MODEL = PersistentConfig(
 )
 
 # Default voice supports multi-language (English, Hindi, Marathi)
-# Browser TTS will use system voices including Microsoft Ravi for Indian languages
+# For Marathi TTS, use Azure with voice: mr-IN-AarohiNeural or mr-IN-ManoharNeural
+# For Hindi TTS, use Azure with voice: hi-IN-SwaraNeural or hi-IN-MadhurNeural
+# OpenAI 'alloy' voice only supports English properly
+# Set AUDIO_TTS_VOICE to Azure voice name for proper Marathi/Hindi support
 AUDIO_TTS_VOICE = PersistentConfig(
     "AUDIO_TTS_VOICE",
     "audio.tts.voice",
-    os.getenv("AUDIO_TTS_VOICE", "alloy"),  # Default, can use Microsoft Ravi for Indian languages
+    os.getenv("AUDIO_TTS_VOICE", "alloy"),
+)
+
+# Multi-language TTS voice mapping (auto-selects voice based on detected language)
+# Format: {"language_code": "voice_name"}
+# Example: {"mr": "mr-IN-AarohiNeural", "hi": "hi-IN-SwaraNeural", "en": "alloy"}
+AUDIO_TTS_VOICE_MAPPING = PersistentConfig(
+    "AUDIO_TTS_VOICE_MAPPING",
+    "audio.tts.voice_mapping",
+    {},  # Empty by default, set via environment variable as JSON string
 )
 
 AUDIO_TTS_SPLIT_ON = PersistentConfig(
