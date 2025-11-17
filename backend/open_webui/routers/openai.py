@@ -57,6 +57,36 @@ log.setLevel(SRC_LOG_LEVELS["OPENAI"])
 
 ##########################################
 #
+# Global connection pool for performance
+#
+##########################################
+
+# Reusable aiohttp session for connection pooling (ChatGPT-like speed)
+_global_client_session: Optional[aiohttp.ClientSession] = None
+
+async def get_client_session() -> aiohttp.ClientSession:
+    """Get or create global aiohttp session for connection pooling and keep-alive"""
+    global _global_client_session
+    if _global_client_session is None or _global_client_session.closed:
+        connector = aiohttp.TCPConnector(
+            limit=100,              # 100 concurrent connections
+            limit_per_host=30,      # 30 per host (prevents overwhelming single server)
+            ttl_dns_cache=300,      # Cache DNS for 5min
+            keepalive_timeout=30,   # Keep connections alive for reuse
+            enable_cleanup_closed=True,
+        )
+        timeout = aiohttp.ClientTimeout(total=AIOHTTP_CLIENT_TIMEOUT)
+        _global_client_session = aiohttp.ClientSession(
+            connector=connector,
+            timeout=timeout,
+            trust_env=True
+        )
+        log.info("Created global aiohttp session with connection pooling")
+    return _global_client_session
+
+
+##########################################
+#
 # Utility functions
 #
 ##########################################

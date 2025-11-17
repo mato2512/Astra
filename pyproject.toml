@@ -1,6 +1,6 @@
 [project]
-name = "open-webui"
-description = "Open WebUI"
+name = "astra-ai"
+description = "Astra AI"
 authors = [
     { name = "Prasad Navale", email = "prasad@ngts.tech" }
 ]
@@ -157,7 +157,7 @@ all = [
 ]
 
 [project.scripts]
-open-webui = "open_webui:app"
+astra-ai = "astra_ai:app"
 
 [build-system]
 requires = ["hatchling"]
@@ -189,7 +189,7 @@ exclude = [
     "webui.db",
     "chroma.sqlite3",
 ]
-force-include = { "CHANGELOG.md" = "open_webui/CHANGELOG.md", build = "open_webui/frontend" }
+force-include = { "CHANGELOG.md" = "astra_ai/CHANGELOG.md", build = "astra_ai/frontend" }
 
 [tool.codespell]
 # Ref: https://github.com/codespell-project/codespell#using-a-config-file

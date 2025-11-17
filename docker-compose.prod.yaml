@@ -18,6 +18,48 @@ services:
       - WEBUI_NAME=Astra
       - ENV=prod
       
+      # ========== CRITICAL PERFORMANCE SETTINGS ==========
+      # Multiple workers for concurrent request handling
+      - UVICORN_WORKERS=4
+      
+      # Aggressive timeout settings for faster failures
+      - AIOHTTP_CLIENT_TIMEOUT=45
+      - AIOHTTP_CLIENT_TIMEOUT_MODEL_LIST=5
+      
+      # Connection pooling and keep-alive
+      - AIOHTTP_CLIENT_SESSION_SSL=true
+      
+      # Database performance
+      - DATABASE_POOL_SIZE=10
+      - DATABASE_POOL_RECYCLE=3600
+      - DATABASE_POOL_TIMEOUT=10
+      - DATABASE_MAX_OVERFLOW=20
+      
+      # Thread pool for async operations
+      - THREAD_POOL_SIZE=20
+      
+      # Model caching
+      - ENABLE_MODEL_CACHE=true
+      - MODELS_CACHE_TTL=600
+      
+      # Web search optimization (smart detection)
+      - ENABLE_RAG_WEB_SEARCH=true
+      - RAG_WEB_SEARCH_CONCURRENT_REQUESTS=3
+      
+      # RAG Performance
+      - RAG_TOP_K=5
+      - ENABLE_RAG_HYBRID_SEARCH=true
+      - CHUNK_SIZE=800
+      - CHUNK_OVERLAP=200
+      
+      # Audio optimization
+      - WHISPER_MODEL=small
+      - WHISPER_VAD_FILTER=true
+      - AUDIO_TTS_SPLIT_ON=none
+      
+      # Reduce logging overhead
+      - GLOBAL_LOG_LEVEL=INFO
+      
       # Ollama Settings (if using external Ollama)
       - OLLAMA_BASE_URL=${OLLAMA_BASE_URL:-http://host.docker.internal:11434}
       
@@ -39,19 +81,27 @@ services:
     
     restart: unless-stopped
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
-      interval: 30s
-      timeout: 10s
+      test: ["CMD-SHELL", "curl -sf http://localhost:8080/health || exit 1"]
+      interval: 60s
+      timeout: 5s
       retries: 3
-      start_period: 60s
+      start_period: 45s
     
-    # Resource limits (adjust based on your droplet size)
+    # Resource limits for 8GB+ droplet (UPGRADE RECOMMENDED)
+    # For 2-4GB droplet: Set memory to 3.5G and UVICORN_WORKERS=2
     deploy:
       resources:
         limits:
-          memory: 2G
+          memory: 7G
+          cpus: '4.0'
         reservations:
-          memory: 512M
+          memory: 3G
+          cpus: '2.0'
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 120s
 
 volumes:
   astra-data:
