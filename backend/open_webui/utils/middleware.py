@@ -1936,6 +1936,13 @@ async def process_chat_response(
                                 content = f"{content}{tool_calls_display_content}"
 
                     elif block["type"] == "reasoning":
+                        # Skip reasoning display if reasoning_tags is disabled
+                        reasoning_tags_enabled = metadata.get("params", {}).get("reasoning_tags", False)
+                        
+                        if not reasoning_tags_enabled:
+                            # Skip this block entirely - don't display reasoning
+                            continue
+                        
                         reasoning_display_content = "\n".join(
                             (f"> {line}" if not line.startswith(">") else line)
                             for line in block["content"].splitlines()
