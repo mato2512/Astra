@@ -1466,7 +1466,7 @@ async def chat_completion(
         stream_delta_chunk_size = form_data.get("params", {}).get(
             "stream_delta_chunk_size"
         )
-        reasoning_tags = form_data.get("params", {}).get("reasoning_tags")
+        reasoning_tags = form_data.get("params", {}).get("reasoning_tags", False)
 
         # Model Params
         if model_info_params.get("stream_delta_chunk_size"):

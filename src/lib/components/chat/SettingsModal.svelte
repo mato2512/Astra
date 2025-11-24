@@ -477,7 +477,7 @@
 	const getAvailableSettings = () => {
 		return allSettings.filter((tab) => {
 			if (tab.id === 'connections') {
-				return $config?.features?.enable_direct_connections;
+				return $user?.role === 'admin'; // Only for admin
 			}
 
 			if (tab.id === 'tools') {
